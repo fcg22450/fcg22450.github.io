@@ -1,0 +1,578 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="scrapy详解"><meta name="keywords" content="scrapy"><meta name="author" content="逆の神様"><meta name="copyright" content="逆の神様"><meta name="theme-color" content="#0078E7"><title>scrapy详解 | 逆の神様の小さな駅</title><link rel="shortcut icon" href="/fcg22450.github.io/favicon.png"><link rel="mask-icon" href="/fcg22450.github.io/favicon.png" color="#0078E7"><link rel="preload" href="/fcg22450.github.io/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/fcg22450.github.io/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/fcg22450.github.io/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/fcg22450.github.io/css/hexo-theme-yun.css"><script id="yun-config">
+    let Yun = window.Yun || {};
+    let CONFIG = {"root":"/fcg22450.github.io/","title":"逆の神様の小さな駅","version":"0.6.3","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"/fcg22450.github.io/data/sentences.json"},"fireworks":{"colors":["254, 185, 6","223, 47, 47","102, 167, 221","62, 131, 225","33, 78, 194","3, 28, 95","0, 8, 55"]}};
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_rtqh36oinzl.js" async></script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/fcg22450.github.io/css/prism.css" type="text/css"></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/fcg22450.github.io/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc sidebar-nav-active hty-icon-button" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/fcg22450.github.io/about" title="逆の神様"><img width="96" loading="lazy" src="/fcg22450.github.io/author.jpg" alt="逆の神様"></a><div class="site-author-name"><a href="/fcg22450.github.io/about/">逆の神様</a></div><a class="site-name" href="/fcg22450.github.io/about/site.html">逆の神様の小さな駅</a><sub class="site-subtitle">逆の神様の小さな駅</sub><div class="site-desciption">潦倒不通世务，愚顽怕读文章。</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/fcg22450.github.io/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/fcg22450.github.io/archives" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">112</span></a></div><div class="site-state-item site-state-categories"><a href="/fcg22450.github.io/categories" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item site-state-tags"><a href="/fcg22450.github.io/tags" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><a class="site-state-item hty-icon-button" href="http://fcg22450.gitee.io/new_blog/" target="_blank" rel="noopener" title="随笔"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=1263893578&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/fcg22450" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:fcg0322@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://weibo.com/6553522553" title="微博" target="_blank" style="color:#E6162D"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-weibo-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/fcg22450.git/images/wechat.jpg" title="微信" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/317139394" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.now.sh/" title="Travelling" target="_blank" style="color:black"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-send-plane-2-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/fcg22450.github.io/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a><a class="links-item hty-icon-button" href="/fcg22450.github.io/girls/" title="老婆们 ( 嚣张的我~o(*￣▽￣*)ブ~ )" style="color:hotpink"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-women-line"></use></svg></a></div></div><script defer src="/fcg22450.github.io/js/sidebar.js"></script><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#scrapy"><span class="toc-number">1.</span> <span class="toc-text">scrapy:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何提高scrapy爬虫的效率"><span class="toc-number">2.</span> <span class="toc-text">如何提高scrapy爬虫的效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求传参"><span class="toc-number">3.</span> <span class="toc-text">请求传参:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件"><span class="toc-number">4.</span> <span class="toc-text">中间件:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拦截中间件"><span class="toc-number">4.1.</span> <span class="toc-text">拦截中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UserAgent伪装"><span class="toc-number">4.2.</span> <span class="toc-text">UserAgent伪装</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://github.com/fcg22450/fcg22450.github.io/fcg22450.github.io/2019/05/18/spider/scrapy%E8%AF%A6%E8%A7%A3.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="逆の神様"><meta itemprop="description" content="scrapy详解"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="逆の神様の小さな駅"></span><header class="post-header"><h1 class="post-title" itemprop="name headline" style="color: undefined">scrapy详解</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <span class="post-meta-icon-text">发表于</span> <time title="创建时间：2019-05-18 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-18T00:00:00+08:00">2019-05-18</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <span class="post-meta-icon-text">更新于</span> <time title="修改时间：2020-05-06 12:53:53" itemprop="dateModified" datetime="2020-05-06T12:53:53+08:00">2020-05-06</time></div><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span> <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/fcg22450.github.io/categories/python/" itemprop="url" rel="index"><span itemprop="text">python</span></a></span> > <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/fcg22450.github.io/categories/python/scrapy/" itemprop="url" rel="index"><span itemprop="text">scrapy</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag" href="/fcg22450.github.io/tags/scrapy/"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">scrapy</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h2 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy:"></a>scrapy:</h2><a id="more"></a>
+<ul>
+<li><p>什么是框架?</p>
+<ul>
+<li>继承了各种功能且具有很强通用性(可以被应用在各种不同的需求中)的一个项目模板</li>
+<li>我们需要做的就是学习怎么使用这些框架的功能</li>
+</ul>
+</li>
+<li><p>scrapy框架集成的功能有哪些?</p>
+<ul>
+<li>高性能的数据解析操作</li>
+<li>高性能的数据下载操作</li>
+<li>持久化数据存储</li>
+</ul>
+</li>
+<li><p>scrapy通常只用于get请求,并不适用于post请求的模拟登陆</p>
+</li>
+<li><p>scrapy环境安装</p>
+<ol>
+<li>pip install wheel</li>
+<li>pip install twisted<ul>
+<li><a href="https://pypi.org/project/Twisted/#files" target="_blank" rel="noopener">twisted下载</a></li>
+</ul>
+</li>
+<li>pip install pywin32</li>
+<li>pip install scrapy</li>
+</ol>
+</li>
+<li><p>开始创建scrapy工程</p>
+<ul>
+<li>进入终端输入指令创建新的scrapy工程</li>
+<li>‘scrapy startproject projectname’</li>
+<li>按照指令创建新的爬虫文件 </li>
+<li>scrapy genspider spiderName <a href="http://www.xxx.com" target="_blank" rel="noopener">www.xxx.com</a></li>
+<li>启动爬虫程序<ul>
+<li>scrapy爬虫不能直接运行,</li>
+<li>在命令窗口中输入指令</li>
+<li>scrapy crawl spiderName<ul>
+<li>scrapy crawl spiderName –nolog</li>
+<li>运行时不输出日志信息</li>
+<li>在setting文件中添加配置</li>
+<li>LOG_LEVEL= ‘ERROR’’</li>
+<li>当发生错误时,将错误日志输出,方便调试</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>scrapy工程设置–—–-setting</p>
+<ul>
+<li>User_Agent    这里设置的是爬虫的请求头</li>
+<li>ROBOTSTXT_OBEY = True   这里设置的是robots协议,当值为True时,爬虫将会在运行时优先查看robots协议,如果协议不允许将不会进行爬取</li>
+</ul>
+</li>
+<li><p>scrapy工程使用</p>
+<ul>
+<li><p>构建解析</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+<span class="token keyword">import</span> scrapy
+<span class="token keyword">class</span> <span class="token class-name">NewSpiderSpider</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 爬虫文件的名称,相当于爬虫文件的唯一标识</span>
+    name <span class="token operator">=</span> <span class="token string">'💀'</span>
+    <span class="token comment" spellcheck="true"># 循序的域名, 通常情况下不会使用</span>
+    <span class="token comment" spellcheck="true"># allowed_domains = ['www.baidu.com']</span>
+    <span class="token comment" spellcheck="true"># 起始的url列表, scrapy将会对列表中的url自动进行请求发送</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'http://www.budejie.com/'</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 在scrapy中,数据解析不需要手动导入etree来进行,相对的,这里面集成了etree 的功能,也就是说,我们可以直接使用scrapy的集成来达到我们进行数据解析的目标</span>
+        <span class="token comment" spellcheck="true"># 这个功能的使用方式如下</span>
+        res <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//div[@class="j-r-list-c-desc"]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># extract方法,提取获取到的selected对象中的data数据,当对象为单个对象的时候,获取到的对象就是单个的字符串,</span>
+        <span class="token comment" spellcheck="true"># 当提取到的selected对象为list对象时,获取到的数据也会自动变成一个列表,并不需要循环遍历selected列表来进行提取</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> res<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>scrapy持久化存储</p>
+<ul>
+<li><p>基于终端窗口的持久化存储</p>
+<ul>
+<li><p>特性:只可以将parse方法的返回值写入到本地的磁盘文件中</p>
+</li>
+<li><p>指令: scrapy crawl spiderName -o filePath</p>
+</li>
+<li><pre class=" language-python"><code class="language-python">    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        li_list <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//div[@class="j-r-list"]/ul/li'</span><span class="token punctuation">)</span>
+        all_data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> li <span class="token keyword">in</span> li_list<span class="token punctuation">:</span>
+            author <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div[1]/div[2]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            content <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div[2]/div[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            dic <span class="token operator">=</span> <span class="token punctuation">{</span>
+                <span class="token string">'Author'</span><span class="token punctuation">:</span> author<span class="token punctuation">,</span>
+                <span class="token string">'Content'</span><span class="token punctuation">:</span> content
+            <span class="token punctuation">}</span>
+            all_data<span class="token punctuation">.</span>append<span class="token punctuation">(</span>dic<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> all_data
+<span class="token comment" spellcheck="true"># scrapy 将会对parse的返回值进行处理,并预置了内部的持久化存储模块.这个持久化存储基于命令终端运行,该选项不支持txt文件存储,目前仅支持('json', 'jsonlines', 'jl', 'csv', 'xml', 'marshal', 'pickle')这七种文件</span></code></pre>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>基于管道的持久化存储</p>
+<ul>
+<li><p>管道话存储需要使用scrapy中封存的一些方法,同时需要进行一些处理,这样的存储方式支持txt文档存储</p>
+</li>
+<li><p>管道文件存储示例:</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FirstblodPipeline</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fp <span class="token operator">=</span> None
+    <span class="token comment" spellcheck="true"># 设定在管道运行开始之前优先运行的代码</span>
+    <span class="token keyword">def</span> <span class="token function">open_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'爬虫开始运行~~~~~~~'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 通过在管道运行开始之前打开文件的形式来确保这个文件每次只需要打开一次</span>
+        self<span class="token punctuation">.</span>fp <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'./firstBlod/spiders/all_data.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 当数据被提交时执行的代码,在这里进行数据持久化存储</span>
+    <span class="token keyword">def</span> <span class="token function">process_item</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        author <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'author'</span><span class="token punctuation">]</span>
+        content <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 调用已经打开的文件,并在里面进行写入操作</span>
+        self<span class="token punctuation">.</span>fp<span class="token punctuation">.</span>write<span class="token punctuation">(</span>author <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> content <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 将item转交给下一个管道类</span>
+        <span class="token keyword">return</span> item
+    <span class="token comment" spellcheck="true"># 当管道关闭时执行的代码</span>
+    <span class="token keyword">def</span> <span class="token function">close_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'爬虫结束运行~~~~~~~'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 在代码整体运行结束的时候,关闭打开的文件</span>
+        self<span class="token punctuation">.</span>fp<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>item文件对象实例</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">FirstblodItem</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># define the fields for your item here like:</span>
+    <span class="token comment" spellcheck="true"># name = scrapy.Field()</span>
+    <span class="token comment" spellcheck="true"># 构建新的item对象中的参数</span>
+    <span class="token comment" spellcheck="true"># 格式为    name = scrapy.Field()</span>
+    <span class="token comment" spellcheck="true"># 使用field文件格式的时候,兼容几乎所有的文件类型</span>
+    <span class="token comment" spellcheck="true"># 包括但不仅限于   列表,元组,字典,字符串,数字,二进制流等各种各样的形式</span>
+    author <span class="token operator">=</span> scrapy<span class="token punctuation">.</span>Field<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    content <span class="token operator">=</span> scrapy<span class="token punctuation">.</span>Field<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li><p>settings文件实例</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Configure item pipelines</span>
+<span class="token comment" spellcheck="true"># See https://docs.scrapy.org/en/latest/topics/item-pipeline.html</span>
+ITEM_PIPELINES <span class="token operator">=</span> <span class="token punctuation">{</span>
+   <span class="token string">'firstBlod.pipelines.FirstblodPipeline'</span><span class="token punctuation">:</span> <span class="token number">300</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true"># 管道对象的名字,后面的数值为管道优先值</span>
+    <span class="token comment" spellcheck="true"># 优先值高的将会优先执行</span>
+    <span class="token comment" spellcheck="true"># 数值越低优先值越高</span>
+<span class="token punctuation">}</span></code></pre>
+</li>
+<li><p>找到管道相关代码进行激活</p>
+</li>
+<li><p>在爬虫文件中进行使用</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> scrapy
+<span class="token keyword">from</span> firstBlod<span class="token punctuation">.</span>items <span class="token keyword">import</span> FirstblodItem
+<span class="token comment" spellcheck="true"># 导入item设定类</span>
+<span class="token keyword">class</span> <span class="token class-name">NewSpiderSpider</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">'💀'</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'http://www.budejie.com/'</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        li_list <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//div[@class="j-r-list"]/ul/li'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># all_data = []</span>
+        <span class="token keyword">for</span> li <span class="token keyword">in</span> li_list<span class="token punctuation">:</span>
+            author <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div[1]/div[2]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            content <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div[2]/div[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            item <span class="token operator">=</span> FirstblodItem<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 实例化item对象</span>
+            item<span class="token punctuation">[</span><span class="token string">'author'</span><span class="token punctuation">]</span> <span class="token operator">=</span> author
+            item<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span> <span class="token operator">=</span> content
+            <span class="token comment" spellcheck="true"># item使用方法和字典类似</span>
+            <span class="token comment" spellcheck="true"># 使用yield方法返回封装完成的item对象</span>
+            <span class="token comment" spellcheck="true"># 当使用yield返回的时候,将会自动将item传输到管道对应的接受类中,进行处理并持久化存储</span>
+            <span class="token keyword">yield</span> item</code></pre>
+</li>
+<li><p>将上述条件准备完毕之后,就可以进行数据的持久化存储了</p>
+</li>
+<li><p>当然,也不一定非要存储到文件中去,毕竟还有一些涉及到数据库的存储,都可以放到这个管道中来进行</p>
+</li>
+<li><p>也就是,管道文件中的一个管道类负责一种持久化存储的方案</p>
+</li>
+<li><p>item提交的时候将会把item交给优先级最高的管道类</p>
+</li>
+<li><p>在管道类中,return item的作用是将item转交给下一个管道类</p>
+</li>
+<li><p>双管道类写法以及Mysql数据库写入</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">MysqlPip</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    conn <span class="token operator">=</span> None
+    cursor <span class="token operator">=</span> None
+
+    <span class="token comment" spellcheck="true"># 设定在管道运行开始之前优先运行的代码</span>
+    <span class="token keyword">def</span> <span class="token function">open_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 通过在管道运行开始之前打开文件的形式来确保这个文件每次只需要打开一次</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'爬虫2开始运行~~~~~~~'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 建立数据库游标</span>
+        self<span class="token punctuation">.</span>conn <span class="token operator">=</span> pymysql<span class="token punctuation">.</span>Connect<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">'127.0.0.1'</span><span class="token punctuation">,</span>port<span class="token operator">=</span><span class="token number">3306</span><span class="token punctuation">,</span>user<span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">,</span>password<span class="token operator">=</span><span class="token string">'000000'</span><span class="token punctuation">,</span>db<span class="token operator">=</span><span class="token string">'spider'</span><span class="token punctuation">,</span>charset<span class="token operator">=</span><span class="token string">'utf8'</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>conn<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 当数据被提交时执行的代码,在这里进行数据持久化存储</span>
+    <span class="token keyword">def</span> <span class="token function">process_item</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        author <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'author'</span><span class="token punctuation">]</span>
+        content <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span>
+        sql <span class="token operator">=</span> <span class="token string">'insert into bs values ("%s","%s")'</span><span class="token operator">%</span> <span class="token punctuation">(</span>author<span class="token punctuation">,</span>content<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>sql<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>cursor <span class="token operator">=</span> self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>cursor<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>sql<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>rollback<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'----------------------------------------------------------------------------'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> item
+    <span class="token keyword">def</span> <span class="token function">close_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'爬虫2结束运行~~~~~~~'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>cursor<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>conn<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>手动发送请求:</p>
+<ul>
+<li><p>手动发送get请求</p>
+<ul>
+<li><p>应用场景:   请求同一个主页面下的多个页面</p>
+</li>
+<li><p>代码</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+<span class="token keyword">import</span> scrapy
+<span class="token keyword">from</span> firstBlod<span class="token punctuation">.</span>items <span class="token keyword">import</span> FirstblodItem
+
+<span class="token keyword">class</span> <span class="token class-name">NewSpiderSpider</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 爬虫文件的名称,相当于爬虫文件的唯一标识</span>
+    name <span class="token operator">=</span> <span class="token string">'new_spider'</span>
+    <span class="token comment" spellcheck="true"># 循序的域名, 通常情况下不会使用</span>
+    <span class="token comment" spellcheck="true"># allowed_domains = ['www.baidu.com']</span>
+    <span class="token comment" spellcheck="true"># 起始的url列表, scrapy将会对列表中的url自动进行请求发送</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token string">'https://www.zhipin.com/job_detail/?query=python&amp;city=101010100&amp;industry=&amp;position='</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 设置基本的url模板</span>
+    url <span class="token operator">=</span> <span class="token string">'https://www.zhipin.com/c101010100/?query=python&amp;page=%d&amp;ka=page-%d'</span>
+    <span class="token comment" spellcheck="true"># 记录页数</span>
+    page_name <span class="token operator">=</span> <span class="token number">1</span>
+
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        li_list <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//div[@class="job-list"]'</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>li_list<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># all_data = []</span>
+        <span class="token keyword">for</span> li <span class="token keyword">in</span> li_list<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 职位名称</span>
+            Job_title <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div/div[1]/h3/a/div[1]/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 公司名称</span>
+            Corporate_name <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div/div[1]/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 地址</span>
+            all_address <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div/div[1]/p//text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 经验 experience</span>
+            <span class="token comment" spellcheck="true"># address,experience,Education = all_address.split('|')</span>
+            <span class="token comment" spellcheck="true">#学历 Education</span>
+            <span class="token comment" spellcheck="true"># dic = {</span>
+            <span class="token comment" spellcheck="true">#     'Author': author,</span>
+            <span class="token comment" spellcheck="true">#     'Content': content</span>
+            <span class="token comment" spellcheck="true"># }</span>
+            <span class="token comment" spellcheck="true"># all_data.append(dic)</span>
+            item <span class="token operator">=</span> FirstblodItem<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            item<span class="token punctuation">[</span><span class="token string">'Job_title'</span><span class="token punctuation">]</span> <span class="token operator">=</span> Job_title
+            item<span class="token punctuation">[</span><span class="token string">'Corporate_name'</span><span class="token punctuation">]</span> <span class="token operator">=</span> Corporate_name
+            <span class="token keyword">yield</span> item
+        <span class="token comment" spellcheck="true"># 确定当前页数,</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>page_name <span class="token operator">&lt;=</span> <span class="token number">5</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>page_name <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token comment" spellcheck="true"># 拼接新的url</span>
+            new_url <span class="token operator">=</span> format<span class="token punctuation">(</span>self<span class="token punctuation">.</span>url<span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>page_name<span class="token punctuation">,</span>self<span class="token punctuation">.</span>page_name<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 使用yield进行请求,参数callback为处理这些页面信息所用的函数,可自行设定,也可用递归的方式使用当前的函数</span>
+            <span class="token keyword">yield</span> scrapy<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>new_url<span class="token punctuation">,</span>callback<span class="token operator">=</span>self<span class="token punctuation">.</span>parse<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> li_list</code></pre>
+</li>
+<li><p>重写父类的自动请求方法</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 重写父类方法意味着我们可以自定义数据清洗函数,而不需要局限于parse</span>
+<span class="token keyword">def</span> <span class="token function">start_requests</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> url <span class="token keyword">in</span> self<span class="token punctuation">.</span>start_urls<span class="token punctuation">:</span>
+        <span class="token keyword">yield</span> scrapy<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>url<span class="token punctuation">,</span>callback<span class="token operator">=</span>self<span class="token punctuation">.</span>parse<span class="token punctuation">)</span></code></pre>
+</li>
+<li><p>要想使scrapy自动发送get请求,需要重写start_requests方法</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>## scrapy图片处理:</code></pre><ol>
+<li><p>在scrapy中,有着专门的模块对图片数据进行请求以及处理,我们只需要将获取到的图片url以item的形式传输到我们的管道之中进行处理即可,item对象的创建于寻常的创建方法没设么区别,scrapy.Fields包容性极强,不需要考虑兼容性问题,</p>
+</li>
+<li><p>在提交到管道中去之后,我们可以在管道之中对item中的数据进行处理,</p>
+</li>
+<li><p>使用scrapy中封装的图片处理专用类scrapy.pipelines.images import ImagePipeline</p>
+</li>
+<li><p>创建一个新的管道类,这个管道类继承自ImagePipline</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ImgSpidersPipeline</span><span class="token punctuation">(</span>ImagesPipeline<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 对一个图片链接进行请求发送</span>
+    <span class="token comment" spellcheck="true"># item 就是scrapy提交过来的item数据</span>
+    <span class="token keyword">def</span> <span class="token function">get_media_requests</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">,</span> info<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">yield</span> scrapy<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>item<span class="token punctuation">[</span><span class="token string">'src'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 准备文件名</span>
+    <span class="token keyword">def</span> <span class="token function">file_path</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> response<span class="token operator">=</span>None<span class="token punctuation">,</span> info<span class="token operator">=</span>None<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        file_name <span class="token operator">=</span> request<span class="token punctuation">.</span>url<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'正在下载'</span><span class="token punctuation">,</span>file_name<span class="token punctuation">,</span><span class="token string">'............'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> file_name
+    <span class="token comment" spellcheck="true"># 将item传递给下一个即将执行的管道类</span>
+    <span class="token keyword">def</span> <span class="token function">item_completed</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> results<span class="token punctuation">,</span> item<span class="token punctuation">,</span> info<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> item</code></pre>
+</li>
+<li><p>完成这些之后,我们还需要对图片的存储路径进行设置,在setting文件中添加新的属性</p>
+<ul>
+<li><p>IMAGES_STORE = “imagePath”</p>
+</li>
+<li><p>imagePath自行设置,最好设置为绝对路径,如果使用相对路径的话,最好参考django中的文件路径的写法,先确定工程的路径,然后再在工程路径的基础上设定相对路径</p>
+</li>
+<li><p>django方法设置路径如下:</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token comment" spellcheck="true"># 获取当前文件夹的主路径</span>
+BASE_DIR <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>abspath<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 将要添加的图片文件保存路径加入到主路径中去</span>
+IMAGES_STORE <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>BASE_DIR<span class="token punctuation">,</span><span class="token string">'imgsLib'</span><span class="token punctuation">)</span></code></pre>
+</li>
+<li><p>这个方法同样设置在settings文件中</p>
+</li>
+</ul>
+</li>
+<li><p>完成这些之后,只需要在settings中将写好的管道类进行注册,即可开始这个管道类</p>
+</li>
+<li><p>运行爬虫程序,将会开始全自动下载选中的图片,根据之前学过的方法,即设定网址的基础模板,即可实现图片的批量下载</p>
+</li>
+</ol>
+<h2 id="如何提高scrapy爬虫的效率"><a href="#如何提高scrapy爬虫的效率" class="headerlink" title="如何提高scrapy爬虫的效率"></a>如何提高scrapy爬虫的效率</h2><ol>
+<li>增加并发数量<ul>
+<li>CONCURRENT_REQUESTS = 32</li>
+<li>默认并发数量为32</li>
+<li>可以自行设置</li>
+</ul>
+</li>
+<li>降低日志等级<ul>
+<li>LOG_LEVEL = “INFO”</li>
+<li>LOG_LEVEL = “ERROR”</li>
+</ul>
+</li>
+<li>禁止cookie<ul>
+<li>COOKIES_ENABLED = False</li>
+<li>在scrapy中会自动对cookie进行处理,不管这个页面是否需要验证cookie</li>
+<li>将cookie处理模块进行关闭,将会提升scrapy的执行效率</li>
+</ul>
+</li>
+<li>禁止重试<ul>
+<li>scrapy将会自动对失败的请求进行重试,这严重影响到了爬虫的执行效率,可以将重试功能禁掉,从而提升执行效率</li>
+<li>在settings文件中书写代码</li>
+<li>RETRY_ENABLED = False</li>
+<li>当请求失败的时候,scrapy将不会去处理请求失败的数据,而是会直接跳过进行下一条</li>
+</ul>
+</li>
+<li>减少下载超时<ul>
+<li>DOWNLOAD_TIMEOUT = 10</li>
+<li>写入这段代码,作用是设定请求超时的时间,也就是说,当你在亲求时间超过了十秒的时候依然没有拿到数据的话,将会结束请求,执行下一项,而不是一直等待下去,这个熟知的单位是秒<h2 id="请求传参"><a href="#请求传参" class="headerlink" title="请求传参:"></a>请求传参:</h2></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>基于请求传参可以实现深度爬取<ul>
+<li>请求传参,在进行scrapy.Request请求的时候,可以使用第三个参数meta</li>
+<li>这个参数的作用是向上一个参数callback这个解析函数中传递参数,她的数据类型是一个字典,通过键值对的形式存储需要传递的数据</li>
+<li>当我们需要将上一个解析函数中实例化好的item对象传递到下一个解析函数中的时候,可以使用这个方法进行传递</li>
+<li>在另一个解析函数 中,通过response参数的meta属性可以拿到参数的内容并进行提取,这个就可以拿到上一个函数中传递过来的item对象,实现不同解析函数之间的请求传递</li>
+<li>通过这个方式可以实现深度爬取,即</li>
+<li>当一整套数据的内容如标题和简介存在于两个关联的页面中,那么我们想要同时获得标题和简介,就需要进行深度爬取,使用这个方式传递的话,将会更简便的实现深度爬取的要求</li>
+</ul>
+</li>
+</ul>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件:"></a>中间件:</h2><p>在创建好的scrapy工程中,自带了两个基础的中间件</p>
+<p>爬虫中间件TwoSpidersSpiderMiddleware</p>
+<p>下载中间件TwoSpidersDownloaderMiddleware</p>
+<ol>
+<li><h3 id="拦截中间件"><a href="#拦截中间件" class="headerlink" title="拦截中间件"></a>拦截中间件</h3><ol>
+<li><p>作用:批量拦截请求</p>
+</li>
+<li><p>拦截请求:</p>
+<ul>
+<li><p>UA伪装</p>
+<ul>
+<li>目的:将所有的请求的请求头尽可能多的不同的请求载体标识</li>
+</ul>
+</li>
+<li><p>代理操作</p>
+<ul>
+<li><pre class=" language-python"><code class="language-python">    <span class="token keyword">def</span> <span class="token function">process_exception</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> exception<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 在错误捕获阶段进行代理修正,</span>
+        <span class="token keyword">if</span> request<span class="token punctuation">.</span>url<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'http'</span><span class="token punctuation">:</span>
+            request<span class="token punctuation">.</span>meta<span class="token punctuation">[</span><span class="token string">'proxy'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'http://'</span> <span class="token operator">+</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>PROXY_http<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            request<span class="token punctuation">.</span>meta<span class="token punctuation">[</span><span class="token string">'proxy'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'http://'</span> <span class="token operator">+</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>PROXY_https<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> request</code></pre>
+</li>
+<li><pre class=" language-python"><code class="language-python">    <span class="token keyword">def</span> <span class="token function">process_request</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 实现将拦截到的request请求尽可能多的设定成不同的请求载体身份标识</span>
+        request<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">'User-Agent'</span><span class="token punctuation">]</span> <span class="token operator">=</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>user_agent_list<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 在每次请求之前进行代理修正</span>
+        <span class="token keyword">if</span> request<span class="token punctuation">.</span>url<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'http'</span><span class="token punctuation">:</span>
+            request<span class="token punctuation">.</span>meta<span class="token punctuation">[</span><span class="token string">'proxy'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'http://'</span> <span class="token operator">+</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>PROXY_http<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            request<span class="token punctuation">.</span>meta<span class="token punctuation">[</span><span class="token string">'proxy'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'http://'</span> <span class="token operator">+</span> random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>PROXY_https<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> None</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>拦截响应</p>
+<ul>
+<li>篡改响应对象或直接替换响应对象</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>下载中间件 </p>
+<ol>
+<li><pre class=" language-python"><code class="language-python"> <span class="token keyword">import</span> scrapy
+ <span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver <span class="token keyword">import</span> Chrome<span class="token punctuation">,</span>ChromeOptions
+ <span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>chrome<span class="token punctuation">.</span>options <span class="token keyword">import</span> Options
+ <span class="token keyword">from</span> wangyi<span class="token punctuation">.</span>items <span class="token keyword">import</span> WangyiItem
+ <span class="token comment" spellcheck="true"># 创建options实例对象,实现无头浏览器</span>
+ chrome_option <span class="token operator">=</span> Options<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ chrome_option<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--headless'</span><span class="token punctuation">)</span>
+ chrome_option<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--disable-gpu'</span><span class="token punctuation">)</span>
+ <span class="token keyword">class</span> <span class="token class-name">WangyiSpider</span><span class="token punctuation">(</span>scrapy<span class="token punctuation">.</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     name <span class="token operator">=</span> <span class="token string">'wangyi'</span>
+     <span class="token comment" spellcheck="true"># allowed_domains = ['www.xxx.com']</span>
+     <span class="token comment" spellcheck="true"># 原始url网页</span>
+     start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'https://news.163.com/'</span><span class="token punctuation">]</span>
+     pro <span class="token operator">=</span> Chrome<span class="token punctuation">(</span>chrome_options<span class="token operator">=</span>chrome_option<span class="token punctuation">)</span>
+     <span class="token comment" spellcheck="true"># 用来存储后续的所有子页面的url</span>
+     cls_url_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+     <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         <span class="token comment" spellcheck="true"># 准备要爬取的目标</span>
+         index_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span>
+         li_list <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//*[@id="index2016_wrap"]/div[1]/div[2]/div[2]/div[2]/div[2]/div/ul/li'</span><span class="token punctuation">)</span>
+         <span class="token comment" spellcheck="true"># print(li_list)</span>
+         <span class="token keyword">for</span> index <span class="token keyword">in</span> index_list<span class="token punctuation">:</span>
+             li <span class="token operator">=</span> li_list<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+             <span class="token comment" spellcheck="true"># 获取子页面url</span>
+             new_url <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./a/@href'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract_first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 获取独影的分类名称</span>
+             news <span class="token operator">=</span> li<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract_first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 将子页面的url添加到类属性中进行存储</span>
+             self<span class="token punctuation">.</span>cls_url_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>new_url<span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 开始对子页面进行过请求,并将请求数据交给下一个解析函数</span>
+             <span class="token keyword">yield</span> scrapy<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>url<span class="token operator">=</span>new_url<span class="token punctuation">,</span>callback<span class="token operator">=</span>self<span class="token punctuation">.</span>new_prase<span class="token punctuation">)</span>
+
+     <span class="token keyword">def</span> <span class="token function">new_prase</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         div_list <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'/html/body/div/div[3]/div[4]/div[1]/div/div/ul/li/div/div'</span><span class="token punctuation">)</span>
+         <span class="token keyword">for</span> div <span class="token keyword">in</span> div_list<span class="token punctuation">:</span>
+             <span class="token comment" spellcheck="true"># 获得新闻标题与新闻详情页面的url</span>
+             title <span class="token operator">=</span> div<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div/div/h3/a/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract_first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+             new_url <span class="token operator">=</span> div<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'./div/div/h3/a/@href'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract_first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 创建item对象,并将后面会用到的标题存储进去</span>
+             item <span class="token operator">=</span> WangyiItem<span class="token punctuation">(</span><span class="token punctuation">)</span>
+             item<span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span> <span class="token operator">=</span> title
+             <span class="token comment" spellcheck="true"># 开始对详情页面进行请求,并将获取到的页面源码与item对象一起传递给下一个解析函数</span>
+             <span class="token keyword">yield</span> scrapy<span class="token punctuation">.</span>Request<span class="token punctuation">(</span>url<span class="token operator">=</span>new_url<span class="token punctuation">,</span>callback<span class="token operator">=</span>self<span class="token punctuation">.</span>content_parse<span class="token punctuation">,</span>meta<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'item'</span><span class="token punctuation">:</span> item<span class="token punctuation">}</span><span class="token punctuation">)</span>
+     <span class="token keyword">def</span> <span class="token function">content_parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         <span class="token comment" spellcheck="true"># 抽取传递过来的item对象</span>
+         item <span class="token operator">=</span> response<span class="token punctuation">.</span>meta<span class="token punctuation">[</span><span class="token string">'item'</span><span class="token punctuation">]</span>
+         <span class="token comment" spellcheck="true"># 解析源码中的内容数据</span>
+         content <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//*[@id="endText"]/p/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token comment" spellcheck="true"># 将内容存储进item对象</span>
+         item<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+         <span class="token comment" spellcheck="true"># 将数据提交给管道</span>
+         <span class="token keyword">yield</span> item
+
+     <span class="token keyword">def</span> <span class="token function">closed</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         <span class="token comment" spellcheck="true"># 当爬虫结束时,关闭selenium浏览器</span>
+         self<span class="token punctuation">.</span>pro<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p> 以上为爬虫文件中的构造</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"> <span class="token keyword">class</span> <span class="token class-name">WangyiPipeline</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true"># 在爬虫开始运行时进行文件的创建</span>
+     <span class="token keyword">def</span> <span class="token function">open_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         self<span class="token punctuation">.</span>fp <span class="token operator">=</span> open<span class="token punctuation">(</span><span class="token string">'./news.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+
+     <span class="token comment" spellcheck="true"># 对提交的item数据进行处理</span>
+     <span class="token keyword">def</span> <span class="token function">process_item</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> item<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         title <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span>
+         content <span class="token operator">=</span> item<span class="token punctuation">[</span><span class="token string">'content'</span><span class="token punctuation">]</span>
+         <span class="token comment" spellcheck="true"># print(item)</span>
+         <span class="token comment" spellcheck="true"># 将item数据进行存储</span>
+         self<span class="token punctuation">.</span>fp<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'['</span> <span class="token operator">+</span> <span class="token string">'title'</span> <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> title <span class="token operator">+</span> <span class="token string">','</span> <span class="token operator">+</span> <span class="token string">'content'</span> <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> content <span class="token operator">+</span> <span class="token string">']'</span> <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span>
+         <span class="token keyword">return</span> item
+     <span class="token keyword">def</span> <span class="token function">close_spider</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         <span class="token comment" spellcheck="true"># 爬虫结束时,关闭打开的文件</span>
+         self<span class="token punctuation">.</span>fp<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p> 以上为管道中的代码</p>
+</li>
+<li><pre class=" language-python"><code class="language-python"> <span class="token keyword">from</span> scrapy <span class="token keyword">import</span> signals
+ <span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>http <span class="token keyword">import</span> HtmlResponse
+ <span class="token keyword">from</span> time <span class="token keyword">import</span> sleep
+ <span class="token keyword">class</span> <span class="token class-name">WangyiDownloaderMiddleware</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+     <span class="token comment" spellcheck="true"># 捕获响应数据并进行检测</span>
+     <span class="token keyword">def</span> <span class="token function">process_response</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">,</span> response<span class="token punctuation">,</span> spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+         <span class="token comment" spellcheck="true"># 抽取爬虫文件中的模拟浏览器</span>
+         pro <span class="token operator">=</span> spider<span class="token punctuation">.</span>pro
+         <span class="token comment" spellcheck="true"># 对请求对象进行解析,当对象为主页面的时候,无视</span>
+         <span class="token comment" spellcheck="true"># spider参数为实例化的爬虫类</span>
+         <span class="token comment" spellcheck="true"># 可以直接调用爬虫类的一些方法</span>
+         <span class="token keyword">if</span> request<span class="token punctuation">.</span>url <span class="token keyword">in</span> spider<span class="token punctuation">.</span>cls_url_list<span class="token punctuation">:</span>
+             <span class="token comment" spellcheck="true"># 通过模拟浏览器发起请求,绕开动态加载</span>
+             pro<span class="token punctuation">.</span>get<span class="token punctuation">(</span>request<span class="token punctuation">.</span>url<span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 等待一秒,确保数据加载完成</span>
+             sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 获取页面源码</span>
+             page_text <span class="token operator">=</span> pro<span class="token punctuation">.</span>page_source
+             <span class="token comment" spellcheck="true"># 实例化HtmlResponse对象</span>
+             <span class="token comment" spellcheck="true"># url    请求的url对象</span>
+             <span class="token comment" spellcheck="true"># body   要返回的页面源码数据</span>
+             <span class="token comment" spellcheck="true"># encoding  设定页面源码的编码格式</span>
+             <span class="token comment" spellcheck="true"># request   请求不变</span>
+             new_response <span class="token operator">=</span> HtmlResponse<span class="token punctuation">(</span>url<span class="token operator">=</span>request<span class="token punctuation">.</span>url<span class="token punctuation">,</span>body<span class="token operator">=</span>page_text<span class="token punctuation">,</span>encoding<span class="token operator">=</span><span class="token string">'utf-8'</span><span class="token punctuation">,</span>request<span class="token operator">=</span>request<span class="token punctuation">)</span>
+             <span class="token comment" spellcheck="true"># 将准备好的数据返回</span>
+             <span class="token keyword">return</span> new_response
+         <span class="token keyword">return</span> response
+</code></pre>
+<p> 以上为中间件中的数据</p>
+</li>
+<li><p>在这三种模块的辅助之下,可以实现对网站数据的深度爬取,必要时,可以添加页码数据,从而确保这个爬虫可以精确定位到每一个分类下的所有数据的每一页数据,也就是说,使用scrapy爬虫,可以直接实现对整个目标网站的覆盖性爬取数据</p>
+</li>
+<li><p>同时,由于scrapy默认是异步运行的,这种形态的爬虫,工作效率比起requests要高得多</p>
+</li>
+</ol>
+</li>
+<li><h3 id="UserAgent伪装"><a href="#UserAgent伪装" class="headerlink" title="UserAgent伪装"></a>UserAgent伪装</h3><ol>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> fake_useragent <span class="token keyword">import</span> UserAgent
+a <span class="token operator">=</span> UserAgent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>Chrome<span class="token punctuation">)</span></code></pre>
+</li>
+</ol>
+</li>
+</ol>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">我很可爱，请给我钱</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.png"><img loading="lazy" src="/fcg22450.github.io/images/alipay.png" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/qqpay.png"><img loading="lazy" src="/fcg22450.github.io/images/qqpay.png" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/weixin.png"><img loading="lazy" src="/fcg22450.github.io/images/weixin.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>逆の神様</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://github.com/fcg22450/fcg22450.github.io/2019/05/18/spider/scrapy%E8%AF%A6%E8%A7%A3.html" title="scrapy详解">https://github.com/fcg22450/fcg22450.github.io/2019/05/18/spider/scrapy%E8%AF%A6%E8%A7%A3.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/fcg22450.github.io/2019/05/22/python_foundation/003.html" rel="prev" title="python基础知识(三)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">python基础知识(三)</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/fcg22450.github.io/2019/05/17/python_foundation/002.html" rel="next" title="python基础知识(二)"><span class="post-nav-text">python基础知识(二)</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>若您无 GitHub 账号，可直接在下方匿名评论。</span><br><span>若您想及时得到回复提醒，建议跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" href="https://github.com/fcg22450/fcg22450.github.io/issues?q=is:issue+scrapy详解">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2018 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 逆の神様</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v4.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.6.3</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2018-09-12T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="总访客量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/fcg22450.github.io/js/hexo-theme-yun.js"></script><script src="/fcg22450.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
