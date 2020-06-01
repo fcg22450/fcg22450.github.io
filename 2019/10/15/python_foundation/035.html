@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="python基础知识(三十五)"><meta name="keywords" content="python"><meta name="author" content="逆の神様"><meta name="copyright" content="逆の神様"><meta name="theme-color" content="#0078E7"><title>python基础知识(三十五) | 逆の神様の小さな駅</title><link rel="shortcut icon" href="/fcg22450.github.io/favicon.png"><link rel="mask-icon" href="/fcg22450.github.io/favicon.png" color="#0078E7"><link rel="preload" href="/fcg22450.github.io/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/fcg22450.github.io/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/fcg22450.github.io/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/fcg22450.github.io/css/hexo-theme-yun.css"><script id="yun-config">
+    let Yun = window.Yun || {};
+    let CONFIG = {"root":"/fcg22450.github.io/","title":"逆の神様の小さな駅","version":"0.6.3","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"/fcg22450.github.io/data/sentences.json"},"fireworks":{"colors":["254, 185, 6","223, 47, 47","102, 167, 221","62, 131, 225","33, 78, 194","3, 28, 95","0, 8, 55"]}};
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_rtqh36oinzl.js" async></script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/fcg22450.github.io/css/prism.css" type="text/css"></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/fcg22450.github.io/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc sidebar-nav-active hty-icon-button" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/fcg22450.github.io/about" title="逆の神様"><img width="96" loading="lazy" src="/fcg22450.github.io/author.jpg" alt="逆の神様"></a><div class="site-author-name"><a href="/fcg22450.github.io/about/">逆の神様</a></div><a class="site-name" href="/fcg22450.github.io/about/site.html">逆の神様の小さな駅</a><sub class="site-subtitle">逆の神様の小さな駅</sub><div class="site-desciption">潦倒不通世务，愚顽怕读文章。</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/fcg22450.github.io/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/fcg22450.github.io/archives" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">134</span></a></div><div class="site-state-item site-state-categories"><a href="/fcg22450.github.io/categories" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item site-state-tags"><a href="/fcg22450.github.io/tags" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><a class="site-state-item hty-icon-button" href="http://fcg22450.gitee.io/new_blog/" target="_blank" rel="noopener" title="随笔"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=1263893578&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/fcg22450" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:fcg0322@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://weibo.com/6553522553" title="微博" target="_blank" style="color:#E6162D"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-weibo-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/fcg22450.git/images/wechat.jpg" title="微信" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/317139394" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.now.sh/" title="Travelling" target="_blank" style="color:black"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-send-plane-2-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/fcg22450.github.io/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a><a class="links-item hty-icon-button" href="/fcg22450.github.io/girls/" title="老婆们 ( 嚣张的我~o(*￣▽￣*)ブ~ )" style="color:hotpink"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-women-line"></use></svg></a></div></div><script defer src="/fcg22450.github.io/js/sidebar.js"></script><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL语句"><span class="toc-number">1.</span> <span class="toc-text">SQL语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装启动和终端链接"><span class="toc-number">1.1.</span> <span class="toc-text">安装启动和终端链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux版本"><span class="toc-number">1.1.1.</span> <span class="toc-text">Linux版本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务端启动"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">服务端启动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#客户端连接"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">客户端连接</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows版本"><span class="toc-number">1.1.2.</span> <span class="toc-text">Windows版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库操作"><span class="toc-number">1.2.</span> <span class="toc-text">数据库操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#显示数据库"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">显示数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建数据库"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">创建数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用数据库"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">使用数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#用户管理"><span class="toc-number">1.2.0.3.1.</span> <span class="toc-text">用户管理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#授权管理"><span class="toc-number">1.2.0.3.2.</span> <span class="toc-text">授权管理</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据库表的表示"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">数据库表的表示</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据表基本操作"><span class="toc-number">1.3.</span> <span class="toc-text">数据表基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建表"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态表型数据"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">静态表型数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除表"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#清空表"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">清空表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改表"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">修改表</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表内容基本操作"><span class="toc-number">1.3.1.</span> <span class="toc-text">表内容基本操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增"><span class="toc-number">1.3.2.</span> <span class="toc-text">增</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#删"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">删</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#改"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">改</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#查"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#其他"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">其他</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://github.com/fcg22450/fcg22450.github.io/fcg22450.github.io/2019/10/15/python_foundation/035.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="逆の神様"><meta itemprop="description" content="python基础知识(三十五)"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="逆の神様の小さな駅"></span><header class="post-header"><h1 class="post-title" itemprop="name headline" style="color: undefined">python基础知识(三十五)</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <span class="post-meta-icon-text">发表于</span> <time title="创建时间：2019-10-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-10-15T00:00:00+08:00">2019-10-15</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <span class="post-meta-icon-text">更新于</span> <time title="修改时间：2020-06-01 15:32:15" itemprop="dateModified" datetime="2020-06-01T15:32:15+08:00">2020-06-01</time></div><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span> <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/fcg22450.github.io/categories/online-course/" itemprop="url" rel="index"><span itemprop="text">online_course</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag" href="/fcg22450.github.io/tags/python/"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">python</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><p>这里以mysql数据库为例</p>
+<p>MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，目前属于 Oracle 旗下公司。MySQL 最流行的关系型数据库管理系统，在 WEB 应用方面MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件之一。</p>
+<p>关于数据库</p>
+<p>本笔记只记录基础命令，详细的数据库用法请左转其官方文档。</p>
+<h3 id="安装启动和终端链接"><a href="#安装启动和终端链接" class="headerlink" title="安装启动和终端链接"></a>安装启动和终端链接</h3><h4 id="Linux版本"><a href="#Linux版本" class="headerlink" title="Linux版本"></a>Linux版本</h4><h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> mysql-server　　</code></pre>
+<p>个人推荐使用 宝塔Linux面板 一键安装 然后重置密码</p>
+<h5 id="服务端启动"><a href="#服务端启动" class="headerlink" title="服务端启动"></a>服务端启动</h5><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@akokono.com ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># service mysqld start</span>
+Starting mysqld:                                           <span class="token punctuation">[</span>  OK  <span class="token punctuation">]</span></code></pre>
+<h5 id="客户端连接"><a href="#客户端连接" class="headerlink" title="客户端连接"></a>客户端连接</h5><pre class=" language-bash"><code class="language-bash">连接：
+    <span class="token comment" spellcheck="true">#和win一样</span>
+    mysql -h host -u user -p
+
+常见错误：
+    ERROR 2002 <span class="token punctuation">(</span>HY000<span class="token punctuation">)</span>:
+        Can<span class="token string">'t connect to local MySQL server through socket '</span>/tmp/mysql.sock' <span class="token punctuation">(</span>2<span class="token punctuation">)</span>, 
+        it means that the MySQL server daemon <span class="token punctuation">(</span>Unix<span class="token punctuation">)</span> or <span class="token function">service</span> <span class="token punctuation">(</span>Windows<span class="token punctuation">)</span> is not running.
+
+退出：
+    QUIT 或者 Control+D</code></pre>
+<h4 id="Windows版本"><a href="#Windows版本" class="headerlink" title="Windows版本"></a>Windows版本</h4><p>MySQL解压后的 bin 目录下有一大堆的可执行文件，执行如下命令初始化数据：</p>
+<p>其默认未给root账户设置密码</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> c:\mysql-5.7.16-winx64\bin
+mysqld --initialize-insecure</code></pre>
+<p>进入可执行文件目录启动,或将MySQL可执行文件添加到环境变量中 :</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 进入可执行文件目录</span>
+<span class="token function">cd</span> c:\mysql-5.7.16-winx64\bin
+<span class="token comment" spellcheck="true"># 启动MySQL服务</span>
+mysqld</code></pre>
+<p>启动MySQL客户端并连接MySQL服务</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 进入可执行文件目录</span>
+<span class="token function">cd</span> c:\mysql-5.7.16-winx64\bin
+<span class="token comment" spellcheck="true"># 连接MySQL服务器</span>
+mysql -u root -p
+<span class="token comment" spellcheck="true"># 提示请输入密码，直接回车</span></code></pre>
+<p>如想日后操作简便，可以做如下操作：将MySQL服务制作成windows服务</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 制作MySQL的Windows服务，在终端执行此命令：</span>
+<span class="token string">"c:\mysql-5.7.16-winx64\bin\mysqld"</span> --install
+<span class="token comment" spellcheck="true"># 移除MySQL的Windows服务，在终端执行此命令：</span>
+<span class="token string">"c:\mysql-5.7.16-winx64\bin\mysqld"</span> --remove</code></pre>
+<p>注册成服务之后，以后再启动和关闭MySQL服务时，仅需执行如下命令：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 启动MySQL服务</span>
+net start mysql
+<span class="token comment" spellcheck="true"># 关闭MySQL服务</span>
+net stop mysql</code></pre>
+<h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><h5 id="显示数据库"><a href="#显示数据库" class="headerlink" title="显示数据库"></a>显示数据库</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">show</span> <span class="token keyword">databases</span><span class="token punctuation">;</span> </code></pre>
+<p>默认已存在的数据库：</p>
+<ul>
+<li>mysql - 用户权限相关数据</li>
+<li>test - 用于用户测试数据</li>
+<li>information_schema - MySQL本身架构相关数据</li>
+</ul>
+<h5 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h5><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true"># utf-8</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> 数据库名称 <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span> utf8 <span class="token keyword">COLLATE</span> utf8_general_ci<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true"># gbk</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> 数据库名称 <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARACTER SET</span> gbk <span class="token keyword">COLLATE</span> gbk_chinese_ci<span class="token punctuation">;</span></code></pre>
+<h5 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">use</span> 数据库名称<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#显示当前使用的数据库中所有表：</span>
+<span class="token keyword">show</span> <span class="token keyword">tables</span><span class="token punctuation">;</span></code></pre>
+<h6 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h6><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#创建用户</span>
+    <span class="token keyword">create</span> <span class="token keyword">user</span> <span class="token string">'用户名'</span>@'IP地址<span class="token string">' identified by '</span>密码'<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#删除用户</span>
+    <span class="token keyword">drop</span> <span class="token keyword">user</span> <span class="token string">'用户名'</span><span class="token variable">@'IP地址'</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#修改用户</span>
+    <span class="token keyword">rename</span> <span class="token keyword">user</span> <span class="token string">'用户名'</span>@'IP地址<span class="token string">'; to '</span>新用户名<span class="token string">'@'</span>IP地址'<span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#修改密码</span>
+    <span class="token keyword">set</span> password <span class="token keyword">for</span> <span class="token string">'用户名'</span>@'IP地址<span class="token string">' = Password('</span>新密码'<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#用户权限相关数据保存在mysql数据库的user表中，</span>
+<span class="token comment" spellcheck="true">#所以也可以直接对其进行操作（不建议）</span></code></pre>
+<h6 id="授权管理"><a href="#授权管理" class="headerlink" title="授权管理"></a>授权管理</h6><pre class=" language-sql"><code class="language-sql"><span class="token keyword">show</span> grants <span class="token keyword">for</span> <span class="token string">'用户'</span><span class="token variable">@'IP地址'</span>               <span class="token comment" spellcheck="true">-- 查看权限</span>
+<span class="token keyword">grant</span>  权限 <span class="token keyword">on</span> 数据库<span class="token punctuation">.</span>表 <span class="token keyword">to</span>   <span class="token string">'用户'</span><span class="token variable">@'IP地址'</span>   <span class="token comment" spellcheck="true">-- 授权</span>
+<span class="token keyword">revoke</span> 权限 <span class="token keyword">on</span> 数据库<span class="token punctuation">.</span>表 <span class="token keyword">from</span> <span class="token string">'用户'</span><span class="token variable">@'IP地址'</span>   <span class="token comment" spellcheck="true">-- 取消权限</span></code></pre>
+<h5 id="数据库表的表示"><a href="#数据库表的表示" class="headerlink" title="数据库表的表示"></a>数据库表的表示</h5><p>内部</p>
+<pre class=" language-sql"><code class="language-sql">数据库名<span class="token punctuation">.</span><span class="token operator">*</span>           <span class="token comment" spellcheck="true">-- 数据库中的所有</span>
+数据库名<span class="token punctuation">.</span>表          <span class="token comment" spellcheck="true">-- 指定数据库中的某张表</span>
+数据库名<span class="token punctuation">.</span>存储过程     <span class="token comment" spellcheck="true">-- 指定数据库中的存储过程</span>
+<span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span>                <span class="token comment" spellcheck="true">-- 所有数据库</span></code></pre>
+<p>外部</p>
+<pre class=" language-sql"><code class="language-sql">用户名<span class="token variable">@IP</span>地址         <span class="token comment" spellcheck="true">-- 用户只能在改IP下才能访问</span>
+用户名<span class="token variable">@192.168.1.</span><span class="token operator">%</span>   <span class="token comment" spellcheck="true">-- 用户只能在改IP段下才能访问(通配符%表示任意)</span>
+用户名@<span class="token operator">%</span>             <span class="token comment" spellcheck="true">-- 用户可以再任意IP下访问(默认IP地址为%)</span></code></pre>
+<p>示例</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token keyword">all</span> <span class="token keyword">privileges</span> <span class="token keyword">on</span> <span class="token number">db1</span><span class="token punctuation">.</span>tb1 <span class="token keyword">TO</span> <span class="token string">'用户名'</span>@'IP<span class="token string">'
+grant select on db1.* TO '</span>用户名<span class="token string">'@'</span>IP<span class="token string">'
+grant select,insert on *.* TO '</span>用户名<span class="token string">'@'</span>IP<span class="token string">'
+revoke select on db1.tb1 from '</span>用户名<span class="token string">'@'</span>IP'</code></pre>
+<p>特殊的：</p>
+<pre class=" language-sql"><code class="language-sql">flush <span class="token keyword">privileges</span>  <span class="token comment" spellcheck="true">#将数据读取到内存中，从而立即生效。 </span></code></pre>
+<p>忘记密码:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 启动免授权服务端</span>
+mysqld --skip-grant-tables
+<span class="token comment" spellcheck="true"># 客户端</span>
+mysql -u root -p
+<span class="token comment" spellcheck="true"># 修改用户名密码</span>
+update mysql.user <span class="token keyword">set</span> authentication_string<span class="token operator">=</span>password<span class="token punctuation">(</span><span class="token string">'666'</span><span class="token punctuation">)</span> where user<span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">;</span>
+flush privileges<span class="token punctuation">;</span></code></pre>
+<h3 id="数据表基本操作"><a href="#数据表基本操作" class="headerlink" title="数据表基本操作"></a>数据表基本操作</h3><h5 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h5><p>not null 不可为空<br>defalut 默认值<br>null 可以为空</p>
+<p><code>engine=innodb</code> mysql支持事务性操作 失败回滚 <code>engine=myisam</code> mysql支持全局索引 失败不回滚 默认</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> tb1<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> defalut <span class="token number">2</span><span class="token punctuation">,</span>
+    num <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span>
+<span class="token punctuation">)</span><span class="token keyword">engine</span><span class="token operator">=</span><span class="token keyword">innodb</span> <span class="token keyword">default</span> <span class="token keyword">charset</span><span class="token operator">=</span>utf8</code></pre>
+<p><code>auto_increment</code> 自增<br><code>primary key</code> 主键</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> tb1<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">auto_increment</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    num <span class="token keyword">int</span> <span class="token boolean">null</span>
+<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">--    或</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> tb1<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">auto_increment</span><span class="token punctuation">,</span>
+    num <span class="token keyword">int</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    <span class="token keyword">index</span><span class="token punctuation">(</span>nid<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">-- 注意：</span>
+<span class="token comment" spellcheck="true">-- 对于自增列，必须是索引（含主键）。</span>
+<span class="token comment" spellcheck="true">-- 对于自增可以设置步长和起始值</span>
+<span class="token keyword">show</span> <span class="token keyword">session</span> variables <span class="token operator">like</span> <span class="token string">'auto_inc%'</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">session</span> auto_increment_increment<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">session</span> auto_increment_offset<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
+
+shwo <span class="token keyword">global</span>  variables <span class="token operator">like</span> <span class="token string">'auto_inc%'</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">global</span> auto_increment_increment<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">global</span> auto_increment_offset<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#主键，</span>
+<span class="token comment" spellcheck="true">-- 一种特殊的唯一索引，不允许有空值，</span>
+<span class="token comment" spellcheck="true">-- 如果主键使用单个列，则它的值必须唯一，</span>
+<span class="token comment" spellcheck="true">-- 如果是多列，则其组合必须唯一。</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> tb1<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">auto_increment</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    num <span class="token keyword">int</span> <span class="token boolean">null</span>
+<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">-- 或</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> tb1<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    num <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">(</span>nid<span class="token punctuation">,</span>num<span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre>
+<p><code>foreign key</code> 外键</p>
+<pre class=" language-sql"><code class="language-sql">creat <span class="token keyword">table</span> color<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    name char<span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">create</span> <span class="token keyword">table</span> fruit<span class="token punctuation">(</span>
+    nid <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    smt char<span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token boolean">null</span> <span class="token punctuation">,</span>
+    color_id <span class="token keyword">int</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    <span class="token keyword">constraint</span> fk_cc <span class="token keyword">foreign</span> <span class="token keyword">key</span> <span class="token punctuation">(</span>color_id<span class="token punctuation">)</span> <span class="token keyword">references</span> color<span class="token punctuation">(</span>nid<span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre>
+<h5 id="静态表型数据"><a href="#静态表型数据" class="headerlink" title="静态表型数据"></a>静态表型数据</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token punctuation">(</span><span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> 表名<span class="token punctuation">(</span>第一行<span class="token punctuation">,</span>第二行<span class="token punctuation">)</span></code></pre>
+<h5 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">drop</span> <span class="token keyword">table</span> 表名</code></pre>
+<h5 id="清空表"><a href="#清空表" class="headerlink" title="清空表"></a>清空表</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">delete</span> <span class="token keyword">from</span> 表名
+<span class="token keyword">truncate</span> <span class="token keyword">table</span> 表名</code></pre>
+<h5 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h5><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#添加列：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">add</span> 列名 类型
+<span class="token comment" spellcheck="true">#删除列：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">drop</span> <span class="token keyword">column</span> 列名
+<span class="token comment" spellcheck="true">#修改列：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">modify</span> <span class="token keyword">column</span> 列名 类型<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">-- 类型</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 change 原列名 新列名 类型<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">-- 列名，类型</span>
+
+<span class="token comment" spellcheck="true">#添加主键：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">add</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">(</span>列名<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#删除主键：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">drop</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">;</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名  <span class="token keyword">modify</span>  列名 <span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">drop</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">#添加外键：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 从表 <span class="token keyword">add</span> <span class="token keyword">constraint</span> 外键名称（形如：FK_从表_主表）
+<span class="token keyword">foreign</span> <span class="token keyword">key</span> 从表<span class="token punctuation">(</span>外键字段<span class="token punctuation">)</span> <span class="token keyword">references</span> 主表<span class="token punctuation">(</span>主键字段<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#删除外键：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> 表名 <span class="token keyword">drop</span> <span class="token keyword">foreign</span> <span class="token keyword">key</span> 外键名称
+
+<span class="token comment" spellcheck="true">#修改默认值：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> testalter_tbl <span class="token keyword">alter</span> i <span class="token keyword">set</span> <span class="token keyword">default</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">#删除默认值：</span>
+<span class="token keyword">alter</span> <span class="token keyword">table</span> testalter_tbl <span class="token keyword">alter</span> i <span class="token keyword">drop</span> <span class="token keyword">default</span><span class="token punctuation">;</span></code></pre>
+<h4 id="表内容基本操作"><a href="#表内容基本操作" class="headerlink" title="表内容基本操作"></a>表内容基本操作</h4><p>mysql存值的基本数据类型</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">bit</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#二进制位（101001），m表示二进制位的长度（1-64），默认m＝1</span>
+
+<span class="token keyword">tinyint</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span> <span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#小整数，数据类型用于保存一些范围的整数数值范围：</span>
+  <span class="token comment" spellcheck="true">#特别的： MySQL中无布尔值，使用tinyint(1)构造。</span>
+
+<span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span><span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#整数，数据类型用于保存一些范围的整数数值范围</span>
+
+<span class="token keyword">bigint</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span><span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#大整数，数据类型用于保存一些范围的整数数值范围</span>
+
+<span class="token keyword">decimal</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">[</span><span class="token punctuation">,</span><span class="token number">d</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span> <span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#准确的十进制，m是数字总个数（负号不算），d是小数点后个数。 m最大值为65，d最大值为30。</span>
+
+<span class="token keyword">float</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">d</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span> <span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#单精度浮点数（非准确小数值），m是数字总个数，d是小数点后个数。数值越大，越不准确</span>
+
+
+<span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span><span class="token number">d</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>unsigned<span class="token punctuation">]</span> <span class="token punctuation">[</span>zerofill<span class="token punctuation">]</span>
+  <span class="token comment" spellcheck="true">#双精度浮点数（非准确小数值），m是数字总个数，d是小数点后个数。数值越大，越不准确</span>
+
+char <span class="token punctuation">(</span>m<span class="token punctuation">)</span>
+  <span class="token comment" spellcheck="true">#char数据类型用于表示固定长度的字符串，可以包含最多达255个字符。</span>
+  <span class="token comment" spellcheck="true">#其中m代表字符串的长度。即使数据小于m长度，也会占用m长度</span>
+
+<span class="token keyword">varchar</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span>
+  <span class="token comment" spellcheck="true">#varchars数据类型用于变长的字符串，可以包含最多达255个字符。</span>
+  <span class="token comment" spellcheck="true">/**其中m代表该数据类型所允许保存的字符串的最大长度，
+        只要长度小于该最大值的字符串都可以被保存在该数据类型中。
+        注：虽然varchar使用起来较为灵活，但是从整个系统的性能角度来说，
+        char数据类型的处理速度更快，有时甚至可以超出varchar处理速度的50%。
+        因此，用户在设计数据库时应当综合考虑各方面的因素，以求达到最佳的平衡**/</span>
+
+<span class="token keyword">text</span>
+  <span class="token comment" spellcheck="true">#text数据类型用于保存变长的大字符串，可以组多到65535 (2**16 − 1)个字符。</span>
+
+<span class="token keyword">mediumtext</span>
+  <span class="token comment" spellcheck="true">#A TEXT column with a maximum length of 16,777,215 (2**24 − 1) characters.</span>
+
+<span class="token keyword">longtext</span>
+  <span class="token comment" spellcheck="true">#A TEXT column with a maximum length of 4,294,967,295 or 4GB (2**32 − 1) characters.</span>
+
+<span class="token keyword">enum</span>
+  <span class="token comment" spellcheck="true">#枚举类型</span>
+  <span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> shirts <span class="token punctuation">(</span>
+      name <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      size <span class="token keyword">ENUM</span><span class="token punctuation">(</span><span class="token string">'x-small'</span><span class="token punctuation">,</span> <span class="token string">'small'</span><span class="token punctuation">,</span> <span class="token string">'medium'</span><span class="token punctuation">,</span> <span class="token string">'large'</span><span class="token punctuation">,</span> <span class="token string">'x-large'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> shirts <span class="token punctuation">(</span>name<span class="token punctuation">,</span> size<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> 
+      <span class="token punctuation">(</span><span class="token string">'dress shirt'</span><span class="token punctuation">,</span><span class="token string">'large'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'t-shirt'</span><span class="token punctuation">,</span><span class="token string">'medium'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'polo shirt'</span><span class="token punctuation">,</span><span class="token string">'small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">set</span>
+  <span class="token comment" spellcheck="true">#集合类型</span>
+  <span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> myset <span class="token punctuation">(</span>col <span class="token keyword">SET</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> myset <span class="token punctuation">(</span>col<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'a,d'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'d,a'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'a,d,a'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'a,d,d'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'d,a,d'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">DATE</span>
+  <span class="token comment" spellcheck="true">#YYYY-MM-DD（1000-01-01/9999-12-31）</span>
+
+TIME
+  <span class="token comment" spellcheck="true">#HH:MM:SS（'-838:59:59'/'838:59:59'）</span>
+
+YEAR
+  <span class="token comment" spellcheck="true">#YYYY（1901/2155）</span>
+
+<span class="token keyword">DATETIME</span>
+  <span class="token comment" spellcheck="true">#YYYY-MM-DD HH:MM:SS（1000-01-01 00:00:00/9999-12-31 23:59:59    Y）</span>
+
+<span class="token keyword">TIMESTAMP</span>
+  <span class="token comment" spellcheck="true">#YYYYMMDD HHMMSS（1970-01-01 00:00:00/2037 年某时）</span></code></pre>
+<p><em>二进制数据：TinyBlob、Blob、MediumBlob、LongBlob</em></p>
+<h4 id="增"><a href="#增" class="headerlink" title="#增"></a><a href="http://nanarino.metoyun.com/py/30-SQL语句.html#增" target="_blank" rel="noopener">#</a>增</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> 表 <span class="token punctuation">(</span>列名<span class="token punctuation">,</span>列名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span>值<span class="token punctuation">,</span>值<span class="token punctuation">,</span>值<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> 表 <span class="token punctuation">(</span>列名<span class="token punctuation">,</span>列名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">values</span> <span class="token punctuation">(</span>值<span class="token punctuation">,</span>值<span class="token punctuation">,</span>值<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span>值<span class="token punctuation">,</span>值<span class="token punctuation">,</span>值<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> 表 <span class="token punctuation">(</span>列名<span class="token punctuation">,</span>列名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">select</span> <span class="token punctuation">(</span>列名<span class="token punctuation">,</span>列名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">from</span> 表</code></pre>
+<h5 id="删"><a href="#删" class="headerlink" title="删"></a>删</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">delete</span> <span class="token keyword">from</span> 表
+<span class="token keyword">delete</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id＝<span class="token number">1</span> <span class="token operator">and</span> name＝<span class="token string">'alex'</span><span class="token number">1</span></code></pre>
+<h5 id="改"><a href="#改" class="headerlink" title="改"></a>改</h5><pre class=" language-sql"><code class="language-sql"><span class="token keyword">update</span> 表 <span class="token keyword">set</span> name ＝ <span class="token string">'alex'</span> <span class="token keyword">where</span> id<span class="token operator">></span><span class="token number">1</span></code></pre>
+<h5 id="查"><a href="#查" class="headerlink" title="查"></a>查</h5><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#打印完整表</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表
+
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">></span> <span class="token number">1</span>
+<span class="token keyword">select</span> nid<span class="token punctuation">,</span>name<span class="token punctuation">,</span>gender <span class="token keyword">as</span> gg <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">></span> <span class="token number">1</span></code></pre>
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><pre class=" language-sql"><code class="language-sql"><span class="token number">a</span>、条件
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">></span> <span class="token number">1</span> <span class="token operator">and</span> name <span class="token operator">!=</span> <span class="token string">'alex'</span> <span class="token operator">and</span> num <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">between</span> <span class="token number">5</span> <span class="token operator">and</span> <span class="token number">16</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">)</span>
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">not</span> <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">)</span>
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> id <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token keyword">select</span> nid <span class="token keyword">from</span> 表<span class="token punctuation">)</span>
+
+<span class="token number">b</span>、通配符
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> name <span class="token operator">like</span> <span class="token string">'ale%'</span>  <span class="token operator">-</span> ale开头的所有（多个字符串）
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">where</span> name <span class="token operator">like</span> <span class="token string">'ale_'</span>  <span class="token operator">-</span> ale开头的所有（一个字符）
+
+<span class="token number">c</span>、限制
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">limit</span> <span class="token number">5</span><span class="token punctuation">;</span>            <span class="token operator">-</span> 前<span class="token number">5</span>行
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">limit</span> <span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">;</span>          <span class="token operator">-</span> 从第<span class="token number">4</span>行开始的<span class="token number">5</span>行
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">limit</span> <span class="token number">5</span> <span class="token keyword">offset</span> <span class="token number">4</span>    <span class="token operator">-</span> 从第<span class="token number">4</span>行开始的<span class="token number">5</span>行
+
+<span class="token number">d</span>、排序
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">order</span> <span class="token keyword">by</span> 列 <span class="token keyword">asc</span>              <span class="token operator">-</span> 根据 “列” 从小到大排列
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">order</span> <span class="token keyword">by</span> 列 <span class="token keyword">desc</span>             <span class="token operator">-</span> 根据 “列” 从大到小排列
+    <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> 表 <span class="token keyword">order</span> <span class="token keyword">by</span> 列<span class="token number">1</span> <span class="token keyword">desc</span><span class="token punctuation">,</span> 列<span class="token number">2</span> <span class="token keyword">asc</span>    <span class="token operator">-</span> 根据 “列<span class="token number">1</span>” 从大到小排列，如果相同则按列<span class="token number">2</span>从小到大排序
+
+<span class="token number">e</span>、分组
+    <span class="token keyword">select</span> num <span class="token keyword">from</span> 表 <span class="token keyword">group</span> <span class="token keyword">by</span> num
+    <span class="token keyword">select</span> num<span class="token punctuation">,</span>nid <span class="token keyword">from</span> 表 <span class="token keyword">group</span> <span class="token keyword">by</span> num<span class="token punctuation">,</span>nid
+    <span class="token keyword">select</span> num<span class="token punctuation">,</span>nid <span class="token keyword">from</span> 表  <span class="token keyword">where</span> nid <span class="token operator">></span> <span class="token number">10</span> <span class="token keyword">group</span> <span class="token keyword">by</span> num<span class="token punctuation">,</span>nid <span class="token keyword">order</span> nid <span class="token keyword">desc</span>
+    <span class="token keyword">select</span> num<span class="token punctuation">,</span>nid<span class="token punctuation">,</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">sum</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">max</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">min</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> <span class="token keyword">from</span> 表 <span class="token keyword">group</span> <span class="token keyword">by</span> num<span class="token punctuation">,</span>nid
+
+    <span class="token keyword">select</span> num <span class="token keyword">from</span> 表 <span class="token keyword">group</span> <span class="token keyword">by</span> num <span class="token keyword">having</span> <span class="token function">max</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">10</span>
+
+    特别的：<span class="token keyword">group</span> <span class="token keyword">by</span> 必须在<span class="token keyword">where</span>之后，<span class="token keyword">order</span> <span class="token keyword">by</span>之前
+
+<span class="token number">f</span>、连表
+    无对应关系则不显示
+    <span class="token keyword">select</span> A<span class="token punctuation">.</span>num<span class="token punctuation">,</span> A<span class="token punctuation">.</span>name<span class="token punctuation">,</span> B<span class="token punctuation">.</span>name
+    <span class="token keyword">from</span> A<span class="token punctuation">,</span>B
+    <span class="token keyword">Where</span> A<span class="token punctuation">.</span>nid <span class="token operator">=</span> B<span class="token punctuation">.</span>nid
+
+    无对应关系则不显示
+    <span class="token keyword">select</span> A<span class="token punctuation">.</span>num<span class="token punctuation">,</span> A<span class="token punctuation">.</span>name<span class="token punctuation">,</span> B<span class="token punctuation">.</span>name
+    <span class="token keyword">from</span> A <span class="token keyword">inner</span> <span class="token keyword">join</span> B <span class="token keyword">on</span> A<span class="token punctuation">.</span>nid <span class="token operator">=</span> B<span class="token punctuation">.</span>nid
+
+    A表所有显示，如果B中无对应关系，则值为<span class="token boolean">null</span>
+    <span class="token keyword">select</span> A<span class="token punctuation">.</span>num<span class="token punctuation">,</span> A<span class="token punctuation">.</span>name<span class="token punctuation">,</span> B<span class="token punctuation">.</span>name
+    <span class="token keyword">from</span> A <span class="token keyword">left</span> <span class="token keyword">join</span> B <span class="token keyword">on</span> A<span class="token punctuation">.</span>nid <span class="token operator">=</span> B<span class="token punctuation">.</span>nid
+
+    B表所有显示，如果B中无对应关系，则值为<span class="token boolean">null</span>
+    <span class="token keyword">select</span> A<span class="token punctuation">.</span>num<span class="token punctuation">,</span> A<span class="token punctuation">.</span>name<span class="token punctuation">,</span> B<span class="token punctuation">.</span>name
+    <span class="token keyword">from</span> A <span class="token keyword">right</span> <span class="token keyword">join</span> B <span class="token keyword">on</span> A<span class="token punctuation">.</span>nid <span class="token operator">=</span> B<span class="token punctuation">.</span>nid
+
+g、组合
+    组合，自动处理重合
+    <span class="token keyword">select</span> nickname
+    <span class="token keyword">from</span> A
+    <span class="token keyword">union</span>
+    <span class="token keyword">select</span> name
+    <span class="token keyword">from</span> B
+
+    组合，不处理重合
+    <span class="token keyword">select</span> nickname
+    <span class="token keyword">from</span> A
+    <span class="token keyword">union</span> <span class="token keyword">all</span>
+    <span class="token keyword">select</span> name
+    <span class="token keyword">from</span> B</code></pre>
+<p>mysql之外的其他关系型数据库的用法大致相同。使用pymysql可用同步执行mysql的事务。</p>
+<p>篇幅有限。变量，函数，存储过程，触发器等知识略过。</p>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">我很可爱，请给我钱</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.png"><img loading="lazy" src="/fcg22450.github.io/images/alipay.png" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/qqpay.png"><img loading="lazy" src="/fcg22450.github.io/images/qqpay.png" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/weixin.png"><img loading="lazy" src="/fcg22450.github.io/images/weixin.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>逆の神様</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://github.com/fcg22450/fcg22450.github.io/2019/10/15/python_foundation/035.html" title="python基础知识(三十五)">https://github.com/fcg22450/fcg22450.github.io/2019/10/15/python_foundation/035.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/fcg22450.github.io/2019/10/18/python_foundation/036.html" rel="prev" title="python基础知识(三十六)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">python基础知识(三十六)</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/fcg22450.github.io/2019/10/14/python_foundation/034.html" rel="next" title="python基础知识(三十四)"><span class="post-nav-text">python基础知识(三十四)</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>若您无 GitHub 账号，可直接在下方匿名评论。</span><br><span>若您想及时得到回复提醒，建议跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" href="https://github.com/fcg22450/fcg22450.github.io/issues?q=is:issue+python基础知识(三十五)">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2018 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 逆の神様</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v4.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.6.3</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2018-09-12T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="总访客量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/fcg22450.github.io/js/hexo-theme-yun.js"></script><script src="/fcg22450.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
