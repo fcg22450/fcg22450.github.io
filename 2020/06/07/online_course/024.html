@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Python进程、线程、协程详解"><meta name="keywords" content="python"><meta name="author" content="逆の神様"><meta name="copyright" content="逆の神様"><meta name="theme-color" content="#0078E7"><title>Python进程、线程、协程详解 | 逆の神様の小さな駅</title><link rel="shortcut icon" href="/fcg22450.github.io/favicon.png"><link rel="mask-icon" href="/fcg22450.github.io/favicon.png" color="#0078E7"><link rel="preload" href="/fcg22450.github.io/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/fcg22450.github.io/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/fcg22450.github.io/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/fcg22450.github.io/css/hexo-theme-yun.css"><script id="yun-config">
+    let Yun = window.Yun || {};
+    let CONFIG = {"root":"/fcg22450.github.io/","title":"逆の神様の小さな駅","version":"0.6.3","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"/fcg22450.github.io/data/sentences.json"},"fireworks":{"colors":["254, 185, 6","223, 47, 47","102, 167, 221","62, 131, 225","33, 78, 194","3, 28, 95","0, 8, 55"]}};
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_rtqh36oinzl.js" async></script><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/fcg22450.github.io/css/prism.css" type="text/css"></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/fcg22450.github.io/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc sidebar-nav-active hty-icon-button" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/fcg22450.github.io/about" title="逆の神様"><img width="96" loading="lazy" src="/fcg22450.github.io/author.jpg" alt="逆の神様"></a><div class="site-author-name"><a href="/fcg22450.github.io/about/">逆の神様</a></div><a class="site-name" href="/fcg22450.github.io/about/site.html">逆の神様の小さな駅</a><sub class="site-subtitle">逆の神様の小さな駅</sub><div class="site-desciption">潦倒不通世务，愚顽怕读文章。</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/fcg22450.github.io/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/fcg22450.github.io/archives" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">144</span></a></div><div class="site-state-item site-state-categories"><a href="/fcg22450.github.io/categories" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">13</span></a></div><div class="site-state-item site-state-tags"><a href="/fcg22450.github.io/tags" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><a class="site-state-item hty-icon-button" href="http://fcg22450.gitee.io/new_blog/" target="_blank" rel="noopener" title="随笔"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=1263893578&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/fcg22450" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:fcg0322@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://weibo.com/6553522553" title="微博" target="_blank" style="color:#E6162D"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-weibo-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/fcg22450.git/images/wechat.jpg" title="微信" target="_blank" style="color:#1AAD19"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-2-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/317139394" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://travellings.now.sh/" title="Travelling" target="_blank" style="color:black"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-send-plane-2-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/fcg22450.github.io/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a><a class="links-item hty-icon-button" href="/fcg22450.github.io/girls/" title="老婆们 ( 嚣张的我~o(*￣▽￣*)ブ~ )" style="color:hotpink"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-women-line"></use></svg></a></div></div><script defer src="/fcg22450.github.io/js/sidebar.js"></script><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python进程、线程、协程详解"><span class="toc-number">1.</span> <span class="toc-text">Python进程、线程、协程详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#进程"><span class="toc-number">1.1.</span> <span class="toc-text">进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lock"><span class="toc-number">1.2.</span> <span class="toc-text">Lock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Semaphore"><span class="toc-number">1.3.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程"><span class="toc-number">1.4.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协程"><span class="toc-number">1.5.</span> <span class="toc-text">协程</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://github.com/fcg22450/fcg22450.github.io/fcg22450.github.io/2020/06/07/online_course/024.html"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="逆の神様"><meta itemprop="description" content="Python进程、线程、协程详解"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="逆の神様の小さな駅"></span><header class="post-header"><h1 class="post-title" itemprop="name headline" style="color: undefined">Python进程、线程、协程详解</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <span class="post-meta-icon-text">发表于</span> <time title="创建时间：2020-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-07T00:00:00+08:00">2020-06-07</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <span class="post-meta-icon-text">更新于</span> <time title="修改时间：2020-06-08 17:19:50" itemprop="dateModified" datetime="2020-06-08T17:19:50+08:00">2020-06-08</time></div><span class="post-busuanzi"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="阅读次数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span id="busuanzi_value_page_pv"></span></span></span><div class="post-classify"><span class="post-category"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span> <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/fcg22450.github.io/categories/online-course/" itemprop="url" rel="index"><span itemprop="text">online_course</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag" href="/fcg22450.github.io/tags/python/"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">python</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h2 id="Python进程、线程、协程详解"><a href="#Python进程、线程、协程详解" class="headerlink" title="Python进程、线程、协程详解"></a>Python进程、线程、协程详解</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a><strong>进程</strong></h3><p><strong>概念</strong>:就是一个程序在一个数据集上的一次动态执行过程(本质上来讲,就是运行中的程序(代指运行过程),程序不运行就不是进程)   抽象概念</p>
+<p><strong>组成</strong>:</p>
+<p>　　 1、程序：我们编写的程序用来描述进程要完成哪些功能以及如何完成</p>
+<p>　　 2、数据集：数据集则是程序在执行过程中所需要使用的资源</p>
+<p>　　 3、进程控制块：进程控制块用来记录进程的外部特征，描述进程的执行变化过程，系统可以利用它来控制和管理进程，它是系统感知进程存在的唯一标志。</p>
+<p><strong>阐释</strong>:进程与进程之间都占用的是独立的内存块,它们彼此之间的数据也是独立的</p>
+<p><strong>优点</strong>:同时利用多个CPU,能够同时进行多个操作</p>
+<p><strong>缺点</strong>:耗费资源(需要重新开辟内存空间)</p>
+<p><strong>构造方法：</strong></p>
+<p>Process([group [, target [, name [, args [, kwargs]]]]])</p>
+<p>　　group: 线程组，目前还没有实现，库引用中提示必须是None；<br>　　target: 要执行的方法；<br>　　name: 进程名；<br>　　args/kwargs: 要传入方法的参数。</p>
+<p><strong>实例方法：</strong></p>
+<p>　　is_alive()：返回进程是否在运行。</p>
+<p>　　join([timeout])：阻塞当前上下文环境的进程程，直到调用此方法的进程终止或到达指定的timeout（可选参数）。</p>
+<p>　　start()：进程准备就绪，等待CPU调度</p>
+<p>　　run()：strat()调用run方法，如果实例进程时未制定传入target，这star执行t默认run()方法。</p>
+<p>　　terminate()：不管任务是否完成，立即停止工作进程</p>
+<p><strong>属性：</strong></p>
+<p>　　daemon：和线程的setDeamon功能一样</p>
+<p>　　name：进程名字。</p>
+<p>　　pid：进程号。</p>
+<p>创建进程的方式有俩种</p>
+<p>**一,通过调用模块的方式来创建线程</p>
+<pre><code># 进程模块
+import multiprocessing
+import time
+
+def f1():
+    start = time.time()
+    sum = 0
+    for n in range(100000000):
+        sum += n
+    print(sum)
+    print(&quot;data:{}&quot;.format(time.time() - start))
+if __name__ == &#39;__main__&#39;:   # windows在调用进程的时候,必须加这句话,否则会报错
+    li = []
+    p1 = multiprocessing.Process(target=f1)
+    li.append(p1)
+    p2 = multiprocessing.Process(target=f1)
+    li.append(p2)
+    for p in li:
+        p.start()
+    for i in li:
+        i.join()
+
+    print(&quot;ending...&quot;)</code></pre><p>**二,通过继承类的方式(推荐)</p>
+<pre><code>import multiprocessing
+
+
+class Process(multiprocessing.Process):
+    def run(self):
+        sum = 0
+        for n in range(100000000):
+            sum += n
+        print(sum)
+
+li = []
+for i in range(2):
+    p = Process()
+    li.append(p)
+
+if __name__ == &#39;__main__&#39;:
+    for p in li:
+        p.start()
+
+    for i in li:
+        i.join()
+
+    print(&quot;ending&quot;)</code></pre><p><strong>进程之间的通信</strong></p>
+<p>创建进程模块的下队列(Queue)</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 进程队列(Queue)</p>
+<p>管道(Pipe)</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 管道(Pipe)</p>
+<p><strong>上述实现了进程间的数据通信,那么进程可以达到数据共享么？Sure。</strong></p>
+<p><strong>前一节中, Pipe、Queue 都有一定数据共享的功能，但是他们会堵塞进程, 这里介绍的两种数据共享方式都不会堵塞进程, 而且都是多进程安全的。</strong></p>
+<p>A manager object returned by <code>Manager()</code> controls a server process which holds Python objects and allows other processes to manipulate them using proxies.</p>
+<p>A manager returned by <code>Manager()</code> will support types <a href="https://docs.python.org/3.5/library/stdtypes.html#list" target="_blank" rel="noopener"><code>list</code></a>, <a href="https://docs.python.org/3.5/library/stdtypes.html#dict" target="_blank" rel="noopener"><code>dict</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.Namespace" target="_blank" rel="noopener"><code>Namespace</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Lock" target="_blank" rel="noopener"><code>Lock</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.RLock" target="_blank" rel="noopener"><code>RLock</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Semaphore" target="_blank" rel="noopener"><code>Semaphore</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.BoundedSemaphore" target="_blank" rel="noopener"><code>BoundedSemaphore</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Condition" target="_blank" rel="noopener"><code>Condition</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Event" target="_blank" rel="noopener"><code>Event</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Barrier" target="_blank" rel="noopener"><code>Barrier</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Queue" target="_blank" rel="noopener"><code>Queue</code></a>, <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Value" target="_blank" rel="noopener"><code>Value</code></a> and <a href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Array" target="_blank" rel="noopener"><code>Array</code></a>.</p>
+<p>由上述英文我们了解到,通过Manager()可以实现进程上的数据共享,并且支持的类型也由很多，接下来看代码</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 进程数据共享(Manager)</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> View Code</p>
+<p><strong>进程同步</strong></p>
+<h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>锁是为了确保数据一致性，比如读写锁，每个进程给一个变量增加 1 ，但是如果在一个进程读取但还没有写入的时候，另外的进程也同时读取了，并写入该值，则最后写入的值是错误的，这时候就需要锁。</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 进程同步</p>
+<p>Lock 同时也实现了 ContextManager API, 可以结合 with 语句使用, 关于 ContextManager, 请移步 <a href="http://quqiuzhu.com/2016/python-decorator-and-context" target="_blank" rel="noopener">Python 学习实践笔记 装饰器 与 context</a> 查看。</p>
+<h3 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h3><p>Semaphore 和 Lock 稍有不同，Semaphore 相当于 N 把锁，获取其中一把就可以执行了。 信号量的总数 N 在构造时传入，<code>s = Semaphore(N)</code>。 和 Lock 一样，如果信号量为0，则进程堵塞，直到信号大于0。</p>
+<p><strong>进程池</strong></p>
+<p>如果有50个任务要去执行,CPU只有4核,那创建50个进程完成,其实大可不必，徒增管理开销。如果只想创建4个进程，让它们轮流替完成任务，不用自己去管理具体的进程的创建销毁，那 Pool 是非常有用的。</p>
+<p>Pool 是进程池，进程池能够管理一定的进程，当有空闲进程时，则利用空闲进程完成任务，直到所有任务完成为止</p>
+<pre><code>def` `func(x):``  ``return` `x``*``x` `if` `__name__ ``=``=` `&#39;__main__&#39;``:``  ``p_pool ``=` `pool.Pool(``4``)``  ``result ``=` `p_pool.``map``(func,``range``(``8``))``  ``print``(result)``# Pool 进程池创建4个进程，不管有没有任务，都一直在进程池中等候，等到有数据的时候就开始执行。</code></pre><p>从上面的例子来看貌似也看不出什么效果,那么接下来自定义一个进程池</p>
+<p>关于进程池的API用法(并不是只有俩个哦)</p>
+<p>apply  (每个任务是排队进行,类似于串行失去意义)</p>
+<p>apply_async  (任务都是并发进行,并且可以设置回调函数) 进程的并发其实可以称之为并行了,可以利用到多核CPU</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> low版进程池</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a><strong>线程</strong></h3><p><strong>概念</strong>:线程是应用程序中工作的最小单元，或者又称之为微进程。</p>
+<p><strong>组成</strong>:它被包含在进程之中，是进程中的实际运作单位。一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。</p>
+<p><strong>阐释</strong>:线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。线程可以共享(调用)进程的数据资源</p>
+<p><strong>优点</strong>:共享内存,IO操作时候,创造并发操作</p>
+<p><strong>缺点</strong>:”……”(中国文化的博大精深的带引号)</p>
+<p><strong>关于多线程</strong></p>
+<p>多线程类似于同时执行多个不同程序，多线程运行有如下优点：</p>
+<ul>
+<li>使用线程可以把占据长时间的程序中的任务放到后台去处理。</li>
+<li>用户界面可以更加吸引人，这样比如用户点击了一个按钮去触发某些事件的处理，可以弹出一个进度条来显示处理的进度</li>
+<li>程序的运行速度可能加快</li>
+<li>在一些等待的任务实现上如用户输入、文件读写和网络收发数据等，线程就比较有用了。在这种情况下我们可以释放一些珍贵的资源如内存占用等等。</li>
+</ul>
+<p>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+<p>每个线程都有他自己的一组CPU寄存器，称为线程的上下文，该上下文反映了线程上次运行该线程的CPU寄存器的状态。</p>
+<p>指令指针和堆栈指针寄存器是线程上下文中两个最重要的寄存器，线程总是在进程得到上下文中运行的，这些地址都用于标志拥有线程的进程地址空间中的内存。</p>
+<ul>
+<li>线程可以被抢占（中断）。</li>
+<li>在其他线程正在运行时，线程可以暂时搁置（也称为睡眠） – 这就是线程的退让。</li>
+</ul>
+<p>线程可以分为:</p>
+<ul>
+<li><strong>内核线程：</strong>由操作系统内核创建和撤销。</li>
+<li><strong>用户线程：</strong>不需要内核支持而在用户程序中实现的线程。</li>
+</ul>
+<p>Python3 线程中常用的两个模块为：</p>
+<ul>
+<li><strong>_thread</strong></li>
+<li><strong>threading(推荐使用)</strong></li>
+</ul>
+<p>thread 模块已被废弃。用户可以使用 threading 模块代替。所以，在 Python3 中不能再使用”thread” 模块。为了兼容性，Python3 将 thread 重命名为 “_thread”。</p>
+<p>Python中使用线程有两种方式：函数或者用类来包装线程对象。</p>
+<p>Python3 通过两个标准库 _thread 和 threading 提供对线程的支持。</p>
+<p>_thread 提供了低级别的、原始的线程以及一个简单的锁，它相比于 threading 模块的功能还是比较有限的。</p>
+<p>threading 模块除了包含 _thread 模块中的所有方法外，还提供的其他方法：</p>
+<ul>
+<li><strong>threading.currentThread()</strong>: 返回当前的线程变量。</li>
+<li><strong>threading.enumerate()</strong>: 返回一个包含正在运行的线程的list。正在运行指线程启动后、结束前，不包括启动前和终止后的线程。</li>
+<li><strong>threading.activeCount()</strong>: 返回正在运行的线程数量，与len(threading.enumerate())有相同的结果。</li>
+</ul>
+<p>除了使用方法外，线程模块同样提供了Thread类来处理线程，Thread类提供了以下方法:</p>
+<ul>
+<li><strong>run():</strong> 用以表示线程活动的方法。</li>
+<li><strong>start():</strong>启动线程活动。 </li>
+<li><strong>join([time]):</strong> 等待至线程中止。这阻塞调用线程直至线程的join() 方法被调用中止-正常退出或者抛出未处理的异常-或者是可选的超时发生。</li>
+<li><strong>setDaemon(True):</strong>守护主线程,跟随主线程退(必须要放在start()上方)</li>
+<li><strong>isAlive():</strong> 返回线程是否活动的。</li>
+<li><strong>getName():</strong> 返回线程名。</li>
+<li><strong>setName():</strong> 设置线程名。</li>
+</ul>
+<p>看了那么多废话,那么创建线程的方式有俩种,接下来看代码</p>
+<p>**一,通过调用模块的方式来创建线程(推荐使用)</p>
+<pre><code>import threading # 线程模块
+import time
+# 创建线程
+def onepiece1(n):
+    print(&quot;路飞正在使用橡胶火箭炮%s,攻击力%s&quot; %(time.ctime(),n))
+    time.sleep(3)
+    print(&quot;路飞结束该技能%s&quot; %time.ctime())
+
+def onepiece2(n):
+    print(&quot;艾尼路正在出雷神万击%s你,攻击力%s&quot; %(time.ctime(),n))
+    time.sleep(5)
+    print(&quot;艾尼路结束该技能%s&quot; %time.ctime())
+
+if __name__ == &#39;__main__&#39;:
+
+    thread_1 = threading.Thread(target=onepiece1,args=(10,)) # 创建子线程
+    thread_2 = threading.Thread(target=onepiece2,args=(9,))
+
+    thread_1.start()
+    # pyhton1.join()
+    thread_2.start()
+    thread_2.join() # 等待线程终止
+
+    print(&quot;ending Fighting&quot;)</code></pre><p><strong>二,创建类通过继承的方式来创建线程</strong></p>
+<p>使用Threading模块创建线程，直接从threading.Thread继承，然后重写<strong>init</strong>方法和run方法：</p>
+<pre><code>import threading
+import time
+
+class MyThread(threading.Thread):
+    def __init__(self,num):
+        threading.Thread.__init__(self)
+        self.num = num
+
+    def run(self):  # 定义每个线程要运行的函数
+        print(&quot;running on number:%s&quot; %self.num)
+        time.sleep(3)
+print(&quot;ending......&quot;)
+
+if __name__ == &#39;__main__&#39;:
+    t1 = MyThread(1) # 继承这个类，把1这个参数，传给num ,t1就是个线程对象
+    t2 = MyThread(2)
+    t1.start()
+    t2.start()</code></pre><p><strong>GIL</strong></p>
+<p>在知道线程的创建方式以及一些方法的使用后,引申一个cpython解释器的一个历史遗留问题,全局GIL锁</p>
+<p>因为Python的线程虽然是真正的线程，但解释器执行代码时，有一个GIL锁：Global Interpreter Lock，任何Python线程执行前，必须先获得GIL锁，然后，每执行100条字节码，解释器就自动释放GIL锁，让别的线程有机会执行。这个GIL全局锁实际上把所有线程的执行代码都给上了锁，所以，多线程在Python中只能交替执行，即使100个线程跑在100核CPU上，也只能用到1个核。</p>
+<p>当然了,也有通过别的途径提高执行效率,技术的道路上终无止境。</p>
+<p><strong>同步锁</strong></p>
+<p>多个线程共同对某个数据修改，则可能出现不可预料的结果，为了保证数据的正确性，需要对多个线程进行同步。</p>
+<p>使用 Thread 对象的 Lock 和 Rlock 可以实现简单的线程同步。</p>
+<p>这两个对象都有 acquire 方法和 release 方法。</p>
+<p>对于那些需要每次只允许一个线程操作的数据，可以将其操作放到 acquire 和 release 方法之间。</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 同步锁 </p>
+<p><strong>线程的死锁和递归锁</strong></p>
+<p>在线程间共享多个资源的时候，如果两个线程分别占有一部分资源并且同时等待对方的资源，就会造成死锁，因为系统判断这部分资源都</p>
+<p>正在使用，所有这两个线程在无外力作用下将一直等待下去。</p>
+<p>解决死锁就可以用递归锁</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 递归锁</p>
+<p>为了支持在同一线程中多次请求同一资源，python提供了“可重入锁”：threading.RLock。RLock内部维护着一个Lock和一个counter变量，counter记录了acquire的次数，从而使得资源可以被多次acquire。直到一个线程所有的acquire都被release，其他的线程才能获得资源。</p>
+<p>*<em>信号量(Semaphore):从意义上来讲,也可以称之为一种锁<br>*</em></p>
+<p>信号量：指同时开几个线程并发</p>
+<p> 　　信号量用来控制线程并发数的，BoundedSemaphore或Semaphore管理一个内置的计数 器，每当调用acquire()时-1，调用release()时+1。</p>
+<p>计数器不能小于0，当计数器为 0时，acquire()将阻塞线程至同步锁定状态，直到其他线程调用release()。(类似于停车位的概念)</p>
+<p> 　 BoundedSemaphore与Semaphore的唯一区别在于前者将在调用release()时检查计数 器的值是否超过了计数器的初始值，如果超过了将抛出一个异常。</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 信号量例子</p>
+<p><strong>同步条件(Event)</strong></p>
+<p>简单了解</p>
+<p>Event对象实现了简单的线程通信机制，它提供了设置信号，清楚信号，等待等用于实现线程间的通信。</p>
+<p>1 设置信号</p>
+<p>使用Event的set()方法可以设置Event对象内部的信号标志为真。Event对象提供了isSet()方法来判断其内部信号标志的状态。当使用event对象的set（）方法后，isSet（）方法返回真</p>
+<p>2 清除信号</p>
+<p>使用Event对象的clear()方法可以清除Event对象内部的信号标志，即将其设为假，当使用Event的clear方法后，isSet()方法返回假</p>
+<p>3 等待</p>
+<p>Event对象wait的方法只有在内部信号为真的时候才会很快的执行并完成返回。当Event对象的内部信号标志位假时，则wait方法一直等待到其为真时才返回。</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 同步条件Event</p>
+<p>Event内部包含了一个标志位，初始的时候为false。<br>可以使用使用set()来将其设置为true；<br>或者使用clear()将其从新设置为false；<br>可以使用is_set()来检查标志位的状态；<br>另一个最重要的函数就是wait(timeout=None)，用来阻塞当前线程，直到event的内部标志位被设置为true或者timeout超时。如果内部标志位为true则wait()函数理解返回。</p>
+<p><strong>多线程利器——队列(queue)</strong></p>
+<p>因为列表是不安全的数据结构,所以引申了新的模块——队列</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 为什么列表是不安全的数据结构</p>
+<p>Python 的 queue 模块中提供了同步的、线程安全的队列类，包括<strong>FIFO（先入先出)队列Queue</strong>，<strong>LIFO（后入先出）队列LifoQueue</strong>，和<strong>优先级队列 PriorityQueue</strong>。</p>
+<p>这些队列都实现了锁原语，能够在多线程中直接使用，可以使用队列来实现线程间的同步。</p>
+<p>queue 模块中的常用方法:</p>
+<ul>
+<li>queue.qsize() 返回队列的大小</li>
+<li>queue.empty() 如果队列为空，返回True,反之False</li>
+<li>queue.full() 如果队列满了，返回True,反之False</li>
+<li>queue.full 与 maxsize 大小对应</li>
+<li>queue.get([block[, timeout]])获取队列，timeout等待时间</li>
+<li>queue.get_nowait() 相当queue.get(False)</li>
+<li>queue.put(item) 写入队列，timeout等待时间</li>
+<li>queue.put_nowait(item) 相当Queue.put(item, False)</li>
+<li>queue.task_done() 在完成一项工作之后，queue.task_done()函数向任务已经完成的队列发送一个信号</li>
+<li>queue.join() 实际上意味着等到队列为空，再执行别的操作</li>
+</ul>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> FIFO</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> LIFO</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 优先级</p>
+<pre><code># 实例``import` `queue``import` `threading``import` `time` `go ``=` `False` `# 设定标识位` `class` `MyThread(threading.Thread):``  ``def` `__init__(``self``, threadID, name, q):``    ``threading.Thread.__init__(``self``)``    ``self``.threadID ``=` `threadID``    ``self``.name ``=` `name``    ``self``.q ``=` `q` `  ``def` `run(``self``):``    ``print``(``&quot;开启线程:{}&quot;``.``format``(``self``.name))``    ``process_data(``self``.name,``self``.q)``    ``print``(``&quot;退出线程:{}&quot;``.``format``(``self``.name))` `def` `process_data(thread_name,q):``  ``while` `not` `go:``    ``queue_lock.acquire()    ``# 获得锁``    ``if` `not` `work_queue.empty(): ``# 如果队列为空返回True,反之False``      ``data ``=` `q.get()     ``# 向队列取值,先进先出``      ``queue_lock.release()  ``# 释放锁``      ``print``(``&quot;{} processing {}&quot;``.``format``(thread_name,data))``    ``else``:``      ``queue_lock.release()``    ``time.sleep(``1``)` `thread_list ``=` `[``&quot;Thread-1&quot;``, ``&quot;Thread-2&quot;``, ``&quot;Thread-3&quot;``]``name_list ``=` `[``&quot;one&quot;``, ``&quot;two&quot;``, ``&quot;three&quot;``, ``&quot;four&quot;``, ``&quot;five&quot;``]``queue_lock ``=` `threading.Lock() ``# 同步锁` `work_queue ``=` `queue.Queue(``10``)``threads ``=` `[]``threads_ID ``=` `1` `# 创建新线程``for` `t ``in` `thread_list:``  ``thread ``=` `MyThread(threads_ID,t,work_queue) ``# 创建线程``  ``thread.start()     ``# 启动线程``  ``threads.append(thread) ``# 追加线程对象到列表``  ``threads_ID ``+``=` `1`     `# ID自加1` `# 填充队列``queue_lock.acquire()``for` `name ``in` `name_list:``  ``work_queue.put(name) ``# 向队列填充``queue_lock.release()` `# 等待队列清空. 清空返回True,则此循环会跳过``while` `not` `work_queue.empty():``  ``pass` `# 改变状态,通知线程退出``go ``=` `True` `# 等待所有线程完成``for` `t ``in` `threads:``  ``t.join()``print``(``&quot;退出主线程。&quot;``)</code></pre><p><strong>生产者与消费者模型</strong></p>
+<p>在这个现实社会中，生活中处处充满了生产和消费.</p>
+<p>什么是生产者消费者模型</p>
+<p>在 工作中，可能会碰到这样一种情况：某个模块负责产生数据，这些数据由另一个模块来负责处理（此处的模块是广义的，可以是类、函数、线程、进程等）。产生数据的模块，就形象地称为生产者；而处理数据的模块，就称为消费者。在生产者与消费者之间在加个缓冲区，形象的称之为仓库，生产者负责往仓库了进商 品，而消费者负责从仓库里拿商品，这就构成了生产者消费者模型。结构图如下</p>
+<p><img src="https://images2015.cnblogs.com/blog/1060991/201701/1060991-20170117114528614-981370533.jpg" alt="img" loading="lazy"></p>
+<p>生产者消费者模型的<strong>优点</strong></p>
+<p><strong>1、解耦</strong></p>
+<p>假设生产者和消费者分别是两个类。如果让生产者直接调用消费者的某个方法，那么生产者对于消费者就会产生依赖（也就是耦合）。将来如果消费者的代码发生变化， 可能会影响到生产者。而如果两者都依赖于某个缓冲区，两者之间不直接依赖，耦合也就相应降低了。</p>
+<p>举个例子，我们去邮局投递信件，如果不使用邮筒（也就是缓冲区），你必须得把信直接交给邮递员。有同学会说，直接给邮递员不是挺简单的嘛？其实不简单，你必须 得认识谁是邮递员，才能把信给他（光凭身上穿的制服，万一有人假冒，就惨了）。这就产生和你和邮递员之间的依赖（相当于生产者和消费者的强耦合）。万一哪天邮递员换人了，你还要重新认识一下（相当于消费者变化导致修改生产者代码）。而邮筒相对来说比较固定，你依赖它的成本就比较低（相当于和缓冲区之间的弱耦合）。</p>
+<p><strong>2、支持并发</strong></p>
+<p>由于生产者与消费者是两个独立的并发体，他们之间是用缓冲区作为桥梁连接，生产者只需要往缓冲区里丢数据，就可以继续生产下一个数据，而消费者只需要从缓冲区了拿数据即可，这样就不会因为彼此的处理速度而发生阻塞。</p>
+<p>接上面的例子，如果我们不使用邮筒，我们就得在邮局等邮递员，直到他回来，我们把信件交给他，这期间我们啥事儿都不能干（也就是生产者阻塞），或者邮递员得挨家挨户问，谁要寄信（相当于消费者轮询）。</p>
+<p><strong>3、支持忙闲不均</strong></p>
+<p>缓冲区还有另一个好处。如果制造数据的速度时快时慢，缓冲区的好处就体现出来了。当数据制造快的时候，消费者来不及处理，未处理的数据可以暂时存在缓冲区中。 等生产者的制造速度慢下来，消费者再慢慢处理掉。</p>
+<p>为了充分复用，再拿寄信的例子来说事。假设邮递员一次只能带走1000封信。万一某次碰上情人节（也可能是圣诞节）送贺卡，需要寄出去的信超过1000封，这时 候邮筒这个缓冲区就派上用场了。邮递员把来不及带走的信暂存在邮筒中，等下次过来 时再拿走。</p>
+<p>对生产者与消费者模型的阐释就进行到这里,用代码实现生产者与消费者模型</p>
+<p><img src="https://images.cnblogs.com/OutliningIndicators/ContractedBlock.gif" alt="img" loading="lazy"> 包子工厂</p>
+<pre><code>import threading, time, queue
+
+q = queue.Queue()
+
+
+def consumer(q):
+    while True:
+        msg = q.get()
+        if isinstance(msg, str) and msg == &quot;quit&quot;:
+            break
+        else:
+            print(msg)
+    print(&quot;Bye byes&quot;)
+
+
+def producer():
+    start_time = time.time()
+    while time.time() - start_time &lt; 5:
+        q.put(&#39;something at %s&#39; % time.time())
+        time.sleep(1)
+    q.put(&#39;quit&#39;)
+
+factory =threading.Thread(target=producer)
+worker = threading.Thread(target=consumer, args=(q,))
+
+factory.start()  # 开启生产者线程
+worker.start()   # 开启消费者线程</code></pre><h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a><strong>协程</strong></h3><p>在学习异步IO模型前，先来了解协程。</p>
+<p><strong>一大波阐释即将到临，非高能请注意闪躲(仔细阅读)</strong></p>
+<p><strong>概念：</strong>协程，又称微线程，纤程。英文名Coroutine。 是非抢占式的程序 主要也是解决I/O操作的</p>
+<p>协程的概念很早就提出来了，但直到最近几年才在某些语言（如Lua）中得到广泛应用。</p>
+<p>子程序，或者称为函数，在所有语言中都是层级调用，比如A调用B，B在执行过程中又调用了C，C执行完毕返回，B执行完毕返回，最后是A执行完毕。</p>
+<p>所以子程序调用是通过栈实现的，一个线程就是执行一个子程序。</p>
+<p>子程序调用总是一个入口，一次返回，调用顺序是明确的。而协程的调用和子程序不同。</p>
+<p>协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。</p>
+<p><strong>优点：</strong></p>
+<p>优点1: 协程极高的执行效率。因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显。</p>
+<p>优点2: 不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
+<p>因为协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是多进程+协程，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。</p>
+<p><strong>协程的优势</strong>：</p>
+<p>1、没有切换的消耗</p>
+<p>2、没有锁的概念</p>
+<p>有一个问题：能用多核吗？</p>
+<p>答：可以采用多进程+协程，是一个很好的解决并发的方案</p>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">我很可爱，请给我钱</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/alipay.png"><img loading="lazy" src="/fcg22450.github.io/images/alipay.png" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/qqpay.png"><img loading="lazy" src="/fcg22450.github.io/images/qqpay.png" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a href="/images/weixin.png"><img loading="lazy" src="/fcg22450.github.io/images/weixin.png" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>逆の神様</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://github.com/fcg22450/fcg22450.github.io/2020/06/07/online_course/024.html" title="Python进程、线程、协程详解">https://github.com/fcg22450/fcg22450.github.io/2020/06/07/online_course/024.html</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/fcg22450.github.io/2020/06/07/online_course/025.html" rel="prev" title="`Global Interpreter Lock"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">`Global Interpreter Lock</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/fcg22450.github.io/2020/06/01/online_course/019.html" rel="next" title="celery"><span class="post-nav-text">celery</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>若您无 GitHub 账号，可直接在下方匿名评论。</span><br><span>若您想及时得到回复提醒，建议跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" href="https://github.com/fcg22450/fcg22450.github.io/issues?q=is:issue+Python进程、线程、协程详解">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2018 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 逆の神様</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v4.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.6.3</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2018-09-12T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div><div id="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv" title="总访客量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user-line"></use></svg></span><span id="busuanzi_value_site_uv"></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv" title="总访问量"><span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg></span><span id="busuanzi_value_site_pv"></span></span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/fcg22450.github.io/js/hexo-theme-yun.js"></script><script src="/fcg22450.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
